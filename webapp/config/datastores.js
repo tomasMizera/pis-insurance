@@ -51,7 +51,8 @@ module.exports.datastores = {
     // adapter: 'sails-mysql',
     // url: 'mysql://user:password@host:port/database',
 
+    adapter: 'sails-postgresql',
+    url: 'postgresql://vffhengq:ZNo9ixCvWwatHbybLHn4DATvW0KU1Py1@balarama.db.elephantsql.com:5432/vffhengq',
   },
-
 
 };
