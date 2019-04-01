@@ -58,7 +58,26 @@ module.exports = {
     //  ╔═╗╔═╗╔═╗╔═╗╔═╗╦╔═╗╔╦╗╦╔═╗╔╗╔╔═╗
     //  ╠═╣╚═╗╚═╗║ ║║  ║╠═╣ ║ ║║ ║║║║╚═╗
     //  ╩ ╩╚═╝╚═╝╚═╝╚═╝╩╩ ╩ ╩ ╩╚═╝╝╚╝╚═╝
-    // n/a
+    owner_id: {
+      model: 'owner'
+    },
+
+    vet_id: {
+      model: 'vet'
+    },
+
+    report_id: {
+      model: 'report'
+    },
+
+    state_id: {
+      model: 'claimstate'
+    },
+
+    action_codes: {
+      collection: 'actioncode',
+      via: 'insurace_claims'
+    }
 
   },
 

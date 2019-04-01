@@ -11,12 +11,11 @@ module.exports = {
     //  ╔═╗╦═╗╦╔╦╗╦╔╦╗╦╦  ╦╔═╗╔═╗
     //  ╠═╝╠╦╝║║║║║ ║ ║╚╗╔╝║╣ ╚═╗
     //  ╩  ╩╚═╩╩ ╩╩ ╩ ╩ ╚╝ ╚═╝╚═╝
-
-    path: {
+    pet_name: {
       type: 'string',
       required: true,
-      description: 'System path to the veterinary report file.',
-      example: '/home/user/Downloads/report_123982347.pdf'
+      description: 'Name of the state.',
+      example: 'Rejected',
     },
 
     //  ╔═╗╔╦╗╔╗ ╔═╗╔╦╗╔═╗
@@ -27,8 +26,9 @@ module.exports = {
     //  ╔═╗╔═╗╔═╗╔═╗╔═╗╦╔═╗╔╦╗╦╔═╗╔╗╔╔═╗
     //  ╠═╣╚═╗╚═╗║ ║║  ║╠═╣ ║ ║║ ║║║║╚═╗
     //  ╩ ╩╚═╝╚═╝╚═╝╚═╝╩╩ ╩ ╩ ╩╚═╝╝╚╝╚═╝
-    insurance_claim: {
-      model: 'insuranceclaim'
+    insurace_claims: {
+      collection: 'insuranceclaim',
+      via: 'state_id'
     },
 
   },

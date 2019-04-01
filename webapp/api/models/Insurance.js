@@ -38,7 +38,18 @@ module.exports = {
     //  ╔═╗╔═╗╔═╗╔═╗╔═╗╦╔═╗╔╦╗╦╔═╗╔╗╔╔═╗
     //  ╠═╣╚═╗╚═╗║ ║║  ║╠═╣ ║ ║║ ║║║║╚═╗
     //  ╩ ╩╚═╝╚═╝╚═╝╚═╝╩╩ ╩ ╩ ╩╚═╝╝╚╝╚═╝
-    // n/a
+
+    owner_id: {
+      model: 'owner',
+    },
+
+    insurance_type_id: {
+      model: 'insurancetype',
+    },
+
+    pet_type_id: {
+      model: 'pettype',
+    },
 
   },
 

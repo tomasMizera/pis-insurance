@@ -67,7 +67,15 @@ module.exports = {
     //  ╔═╗╔═╗╔═╗╔═╗╔═╗╦╔═╗╔╦╗╦╔═╗╔╗╔╔═╗
     //  ╠═╣╚═╗╚═╗║ ║║  ║╠═╣ ║ ║║ ║║║║╚═╗
     //  ╩ ╩╚═╝╚═╝╚═╝╚═╝╩╩ ╩ ╩ ╩╚═╝╝╚╝╚═╝
-    // n/a
+    insurace_claims: {
+      collection: 'insuranceclaim',
+      via: 'owner_id',
+    },
+
+    insurances: {
+      collection: 'insurance',
+      via: 'owner_id',
+    }
 
   },
 
