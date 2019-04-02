@@ -26,7 +26,8 @@ module.exports = {
     luxury_index: {
       type: 'number',
       required: true,
-      description: 'Dont know'
+      isIn: [0,1,2,3,4],
+      description: 'Price category of the pet, zero = price lower than 500EUR, one = price between 500-1000 and so forth.'
     },
 
     //  ╔═╗╔╦╗╔╗ ╔═╗╔╦╗╔═╗
