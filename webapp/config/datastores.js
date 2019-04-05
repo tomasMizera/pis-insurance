@@ -48,11 +48,20 @@ module.exports.datastores = {
     *    (See https://sailsjs.com/config/datastores for help.)                 *
     *                                                                          *
     ***************************************************************************/
-    // adapter: 'sails-mysql',
+    //adapter: 'sails-mysql',
     // url: 'mysql://user:password@host:port/database',
 
+    // Localhost
+    //url: 'postgresql://postgres:12345@localhost:5432/postgres',
+
     adapter: 'sails-postgresql',
-    url: 'postgresql://vffhengq:ZNo9ixCvWwatHbybLHn4DATvW0KU1Py1@balarama.db.elephantsql.com:5432/vffhengq',
+    database: 'vffhengq',
+    host: 'balarama.db.elephantsql.com',
+    user: 'vffhengq',
+    password: 'ZNo9ixCvWwatHbybLHn4DATvW0KU1Py1',
+    port: 5432,
+    max: 1, // 5 is max simultaneously
+    ssl: true,
   },
 
 };
