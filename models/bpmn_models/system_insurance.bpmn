@@ -46,7 +46,7 @@
         <bpmn:incoming>SequenceFlow_1x29uih</bpmn:incoming>
         <bpmn:outgoing>SequenceFlow_0om60bv</bpmn:outgoing>
       </bpmn:serviceTask>
-      <bpmn:serviceTask id="Task_14wh9yv" name="Je krytie cele alebo len ciastocne">
+      <bpmn:serviceTask id="Task_14wh9yv" name="Je krytie celé alebo len čiastočné">
         <bpmn:incoming>SequenceFlow_1laslke</bpmn:incoming>
         <bpmn:outgoing>SequenceFlow_1hyvot6</bpmn:outgoing>
       </bpmn:serviceTask>
