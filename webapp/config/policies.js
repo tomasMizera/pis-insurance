@@ -11,7 +11,6 @@
 module.exports.policies = {
 
   '*': 'is-logged-in',
-
   // Bypass the `is-logged-in` policy for:
   'entrance/*': true,
   'account/logout': true,
@@ -21,4 +20,10 @@ module.exports.policies = {
   'test-mail': true,
   'test-validate': true,
 
+  InsuranceClaimController: {
+    'getInsuranceClaims': true,
+    'setInsuranceClaimStatus': true,
+    'updateInsuranceClaim': true,
+    '*': 'is-logged-in'
+  }
 };
