@@ -5,7 +5,7 @@
     <p>This is a page that only logged-in people can visit. Don't you feel special? Try clicking on a button below to do some things you can't do when you're logged out.</p>
     <div class="buttons">
       <a class="btn btn-info" href="/account/profile">Update my email</a>
-      <button class="btn btn-outline-info ml-2" @click="clickOpenExampleModalButton()">Open a modal</button>
+      <button class="btn btn-outline-info ml-2" @click="clickOpenExampleModalButton()">Submit insurance claim</button>
     </div>
   </div>
 
@@ -16,86 +16,209 @@
         ╚═╝╩ ╚═╩ ╩╩ ╩╩  ╩═╝╚═╝  ┴ ┴└─┘─┴┘┴ ┴┴─┘  -->
   <modal class="example-modal" v-if="modal==='example'" @close="closeExampleModal()" v-cloak>
     <div class="modal-header">
-      <h2 class="modal-title">Example modal</h2>
-      <p>At your leisure, please peruse this excerpt from a whale of a tale.</p>
+      <h2 class="modal-title">Issue new claim</h2>
       <hr/>
       <button type="button" class="modal-close-button" data-dismiss="modal" aria-label="Close"></button>
     </div>
     <div class="modal-body">
-      <h5 class="section-heading">Chapter 1: Loomings.</h5>
-      <p>Call me Ishmael. Some years ago—never mind how long precisely—having little or no money in my purse, and nothing particular to interest me on shore, I thought I would sail about a little and see the watery part of the world. It is a way I have of driving off the spleen and regulating the circulation. Whenever I find myself growing grim about the mouth; whenever it is a damp, drizzly November in my soul; whenever I find myself involuntarily pausing before coffin warehouses, and bringing up the rear of every funeral I meet; and especially whenever my hypos get such an upper hand of me, that it requires a strong moral principle to prevent me from deliberately stepping into the street, and methodically knocking people's hats off—then, I account it high time to get to sea as soon as I can. This is my substitute for pistol and ball. With a philosophical flourish Cato throws himself upon his sword; I quietly take to the ship. There is nothing surprising in this. If they but knew it, almost all men in their degree, some time or other, cherish very nearly the same feelings towards the ocean with me.</p>
-      <div class="js-timestamp-examples">
-        <h5 class="section-heading">About 2 years ago</h5>
-        <p>
-          <js-timestamp :at="pageLoadedAt-(2*365*24*60*60*1000)"></js-timestamp><br/>
-          <js-timestamp :at="pageLoadedAt-(2*365*24*60*60*1000)" format="timeago" short="true"></js-timestamp><br/>
-          <js-timestamp :at="pageLoadedAt-(2*365*24*60*60*1000)" format="calendar"></js-timestamp><br/>
-        </p>
-        <h5 class="section-heading">About 2 months ago</h5>
-        <p>
-          <js-timestamp :at="pageLoadedAt-(2*30*24*60*60*1000)"></js-timestamp><br/>
-          <js-timestamp :at="pageLoadedAt-(2*30*24*60*60*1000)" format="timeago" short="true"></js-timestamp><br/>
-          <js-timestamp :at="pageLoadedAt-(2*30*24*60*60*1000)" format="calendar"></js-timestamp><br/>
-        </p>
-        <h5 class="section-heading">2 days ago</h5>
-        <p>
-          <js-timestamp :at="pageLoadedAt-(2*24*60*60*1000)"></js-timestamp><br/>
-          <js-timestamp :at="pageLoadedAt-(2*24*60*60*1000)" format="timeago" short="true"></js-timestamp><br/>
-          <js-timestamp :at="pageLoadedAt-(2*24*60*60*1000)" format="calendar"></js-timestamp><br/>
-        </p>
-        <h5 class="section-heading">2 hours ago</h5>
-        <p>
-          <js-timestamp :at="pageLoadedAt-(2*60*60*1000)"></js-timestamp><br/>
-          <js-timestamp :at="pageLoadedAt-(2*60*60*1000)" format="timeago" short="true"></js-timestamp><br/>
-          <js-timestamp :at="pageLoadedAt-(2*60*60*1000)" format="calendar"></js-timestamp><br/>
-        </p>
-        <h5 class="section-heading">15 minutes ago</h5>
-        <p>
-          <js-timestamp :at="pageLoadedAt-(15*60*1000)"></js-timestamp><br/>
-          <js-timestamp :at="pageLoadedAt-(15*60*1000)" format="timeago" short="true"></js-timestamp><br/>
-          <js-timestamp :at="pageLoadedAt-(15*60*1000)" format="calendar"></js-timestamp><br/>
-        </p>
-        <h5 class="section-heading">45 seconds ago</h5>
-        <p>
-          <js-timestamp :at="pageLoadedAt-(45*1000)"></js-timestamp><br/>
-          <js-timestamp :at="pageLoadedAt-(45*1000)" format="timeago" short="true"></js-timestamp><br/>
-          <js-timestamp :at="pageLoadedAt-(45*1000)" format="calendar"></js-timestamp><br/>
-        </p>
-        <h5 class="section-heading">Right now</h5>
-        <p>
-          <js-timestamp :at="pageLoadedAt"></js-timestamp><br/>
-          <js-timestamp :at="pageLoadedAt" format="timeago" short="true"></js-timestamp><br/>
-          <js-timestamp :at="pageLoadedAt" format="calendar"></js-timestamp><br/>
-        </p>
-        <h5 class="section-heading">In an hour</h5>
-        <p>
-          <js-timestamp :at="pageLoadedAt+(60*60*1000)"></js-timestamp><br/>
-          <js-timestamp :at="pageLoadedAt+(60*60*1000)" format="timeago" short="true"></js-timestamp><br/>
-          <js-timestamp :at="pageLoadedAt+(60*60*1000)" format="calendar"></js-timestamp><br/>
-        </p>
-        <h5 class="section-heading">In two days</h5>
-        <p>
-          <js-timestamp :at="pageLoadedAt+(2*24*60*60*1000)"></js-timestamp><br/>
-          <js-timestamp :at="pageLoadedAt+(2*24*60*60*1000)" format="timeago" short="true"></js-timestamp><br/>
-          <js-timestamp :at="pageLoadedAt+(2*24*60*60*1000)" format="calendar"></js-timestamp><br/>
-        </p>
-        <h5 class="section-heading">In about two months</h5>
-        <p>
-          <js-timestamp :at="pageLoadedAt+(2*30*24*60*60*1000)"></js-timestamp><br/>
-          <js-timestamp :at="pageLoadedAt+(2*30*24*60*60*1000)" format="timeago" short="true"></js-timestamp><br/>
-          <js-timestamp :at="pageLoadedAt+(2*30*24*60*60*1000)" format="calendar"></js-timestamp><br/>
-        </p>
-        <h5 class="section-heading">In about two years</h5>
-        <p>
-          <js-timestamp :at="pageLoadedAt+(2*365*24*60*60*1000)"></js-timestamp><br/>
-          <js-timestamp :at="pageLoadedAt+(2*365*24*60*60*1000)" format="timeago" short="true"></js-timestamp><br/>
-          <js-timestamp :at="pageLoadedAt+(2*365*24*60*60*1000)" format="calendar"></js-timestamp><br/>
-        </p>
-      </div>
+
+
+      <form action="/insuranceClaim" method="POST">
+          <!-- Multiple Checkboxes -->
+          <div class="form-group">
+            <label class="control-label" for="reasonsForVisit">Reasons for visit</label>
+            <div>
+              <div class="checkbox">
+                <label for="reasonsForVisit-0">
+                  <input type="checkbox" name="reasonsForVisit" id="reasonsForVisit-0" value="1">
+                  Wellness services
+                </label>
+              </div>
+              <div class="checkbox">
+                <label for="reasonsForVisit-1">
+                  <input type="checkbox" name="reasonsForVisit" id="reasonsForVisit-1" value="2">
+                  Injury
+                </label>
+              </div>
+              <div class="checkbox">
+                <label for="reasonsForVisit-2">
+                  <input type="checkbox" name="reasonsForVisit" id="reasonsForVisit-2" value="3">
+                  Illness
+                </label>
+              </div>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label class="control-label" for="description">Description</label>
+            <div>
+              <textarea class="form-control" id="description" name="description">On the 25th of February my pet ...</textarea>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label class="control-label" for="searchinput">Hospital / clinic</label>
+            <div>
+              <input id="searchinput" name="searchinput" type="search" placeholder="Name of the hospital" class="form-control input-md" required="">
+
+            </div>
+          </div>
+
+          <!-- Text input-->
+          <div class="form-group">
+            <label class="control-label" for="textinput">Name of the doctor</label>
+            <div>
+              <input id="textinput" name="textinput" type="text" placeholder="Peter Maricovk" class="form-control input-md" required="">
+              <span class="help-block">Only type name, not degree. If more doctors were involved, split names with comma</span>
+            </div>
+          </div>
+
+          <!-- Appended Input-->
+          <div class="form-group">
+            <label class="control-label" for="appendedtext">Treatment started</label>
+            <div>
+              <div class="input-group">
+                <input id="appendedtext" name="appendedtext" class="form-control" placeholder="18-02-2019" type="text" required="">
+                <span class="input-group-addon">select date</span>
+              </div>
+
+            </div>
+          </div>
+          <!-- Appended Input-->
+          <div class="form-group">
+            <label class="control-label" for="appendedtext">Treatment ended</label>
+            <div>
+              <div class="input-group">
+                <input id="appendedtext" name="appendedtext" class="form-control" placeholder="18-03-2019" type="text">
+                <span class="input-group-addon">select date</span>
+              </div>
+
+            </div>
+          </div>
+          <!-- File Button -->
+          <div class="form-group">
+            <label class="control-label" for="descFileButton">Description of insurance event</label>
+            <div>
+              <input id="descFileButton" name="descFileButton" class="input-file" type="file">
+            </div>
+          </div>
+
+          <!-- File Button -->
+          <div class="form-group">
+            <label class="control-label" for="vetDocButton">Vet report</label>
+            <div>
+              <input id="vetDocButton" name="vetDocButton" class="input-file" type="file">
+            </div>
+          </div>
+
+          <!-- Text input-->
+          <div class="form-group">
+            <label class="control-label" for="textinput">Total cost</label>
+            <div>
+              <input id="textinput" name="textinput" type="text" placeholder="39,5€" class="form-control input-md" required="">
+              <span class="help-block">In euros, only type number, not euro sign</span>
+            </div>
+          </div>
+
+          <!-- Multiple Radios (inline) -->
+          <div class="form-group">
+            <label class="control-label" for="radios">Money recipient</label>
+            <div>
+              <label class="radio-inline" for="radios-0">
+                <input type="radio" name="radios" id="radios-0" value="1" checked="checked">
+                Pay to me
+              </label>
+              <label class="radio-inline" for="radios-1">
+                <input type="radio" name="radios" id="radios-1" value="2">
+                Pay to vet
+              </label>
+            </div>
+          </div>
+
+          <!-- Button -->
+          <div class="form-group">
+            <label class="control-label" for="submitButton"></label>
+            <div>
+              <button id="submitButton" name="submitButton" class="btn btn-success">Submit</button>
+            </div>
+          </div>
+      </form>
+
+<!--      <h5 class="section-heading">Chapter 1: Loomings.</h5>-->
+<!--      <p>Call me Ishmael. Some years ago—never mind how long precisely—having little or no money in my purse, and nothing particular to interest me on shore, I thought I would sail about a little and see the watery part of the world. It is a way I have of driving off the spleen and regulating the circulation. Whenever I find myself growing grim about the mouth; whenever it is a damp, drizzly November in my soul; whenever I find myself involuntarily pausing before coffin warehouses, and bringing up the rear of every funeral I meet; and especially whenever my hypos get such an upper hand of me, that it requires a strong moral principle to prevent me from deliberately stepping into the street, and methodically knocking people's hats off—then, I account it high time to get to sea as soon as I can. This is my substitute for pistol and ball. With a philosophical flourish Cato throws himself upon his sword; I quietly take to the ship. There is nothing surprising in this. If they but knew it, almost all men in their degree, some time or other, cherish very nearly the same feelings towards the ocean with me.</p>-->
+<!--      <div class="js-timestamp-examples">-->
+<!--        <h5 class="section-heading">About 2 years ago</h5>-->
+<!--        <p>-->
+<!--          <js-timestamp :at="pageLoadedAt-(2*365*24*60*60*1000)"></js-timestamp><br/>-->
+<!--          <js-timestamp :at="pageLoadedAt-(2*365*24*60*60*1000)" format="timeago" short="true"></js-timestamp><br/>-->
+<!--          <js-timestamp :at="pageLoadedAt-(2*365*24*60*60*1000)" format="calendar"></js-timestamp><br/>-->
+<!--        </p>-->
+<!--        <h5 class="section-heading">About 2 months ago</h5>-->
+<!--        <p>-->
+<!--          <js-timestamp :at="pageLoadedAt-(2*30*24*60*60*1000)"></js-timestamp><br/>-->
+<!--          <js-timestamp :at="pageLoadedAt-(2*30*24*60*60*1000)" format="timeago" short="true"></js-timestamp><br/>-->
+<!--          <js-timestamp :at="pageLoadedAt-(2*30*24*60*60*1000)" format="calendar"></js-timestamp><br/>-->
+<!--        </p>-->
+<!--        <h5 class="section-heading">2 days ago</h5>-->
+<!--        <p>-->
+<!--          <js-timestamp :at="pageLoadedAt-(2*24*60*60*1000)"></js-timestamp><br/>-->
+<!--          <js-timestamp :at="pageLoadedAt-(2*24*60*60*1000)" format="timeago" short="true"></js-timestamp><br/>-->
+<!--          <js-timestamp :at="pageLoadedAt-(2*24*60*60*1000)" format="calendar"></js-timestamp><br/>-->
+<!--        </p>-->
+<!--        <h5 class="section-heading">2 hours ago</h5>-->
+<!--        <p>-->
+<!--          <js-timestamp :at="pageLoadedAt-(2*60*60*1000)"></js-timestamp><br/>-->
+<!--          <js-timestamp :at="pageLoadedAt-(2*60*60*1000)" format="timeago" short="true"></js-timestamp><br/>-->
+<!--          <js-timestamp :at="pageLoadedAt-(2*60*60*1000)" format="calendar"></js-timestamp><br/>-->
+<!--        </p>-->
+<!--        <h5 class="section-heading">15 minutes ago</h5>-->
+<!--        <p>-->
+<!--          <js-timestamp :at="pageLoadedAt-(15*60*1000)"></js-timestamp><br/>-->
+<!--          <js-timestamp :at="pageLoadedAt-(15*60*1000)" format="timeago" short="true"></js-timestamp><br/>-->
+<!--          <js-timestamp :at="pageLoadedAt-(15*60*1000)" format="calendar"></js-timestamp><br/>-->
+<!--        </p>-->
+<!--        <h5 class="section-heading">45 seconds ago</h5>-->
+<!--        <p>-->
+<!--          <js-timestamp :at="pageLoadedAt-(45*1000)"></js-timestamp><br/>-->
+<!--          <js-timestamp :at="pageLoadedAt-(45*1000)" format="timeago" short="true"></js-timestamp><br/>-->
+<!--          <js-timestamp :at="pageLoadedAt-(45*1000)" format="calendar"></js-timestamp><br/>-->
+<!--        </p>-->
+<!--        <h5 class="section-heading">Right now</h5>-->
+<!--        <p>-->
+<!--          <js-timestamp :at="pageLoadedAt"></js-timestamp><br/>-->
+<!--          <js-timestamp :at="pageLoadedAt" format="timeago" short="true"></js-timestamp><br/>-->
+<!--          <js-timestamp :at="pageLoadedAt" format="calendar"></js-timestamp><br/>-->
+<!--        </p>-->
+<!--        <h5 class="section-heading">In an hour</h5>-->
+<!--        <p>-->
+<!--          <js-timestamp :at="pageLoadedAt+(60*60*1000)"></js-timestamp><br/>-->
+<!--          <js-timestamp :at="pageLoadedAt+(60*60*1000)" format="timeago" short="true"></js-timestamp><br/>-->
+<!--          <js-timestamp :at="pageLoadedAt+(60*60*1000)" format="calendar"></js-timestamp><br/>-->
+<!--        </p>-->
+<!--        <h5 class="section-heading">In two days</h5>-->
+<!--        <p>-->
+<!--          <js-timestamp :at="pageLoadedAt+(2*24*60*60*1000)"></js-timestamp><br/>-->
+<!--          <js-timestamp :at="pageLoadedAt+(2*24*60*60*1000)" format="timeago" short="true"></js-timestamp><br/>-->
+<!--          <js-timestamp :at="pageLoadedAt+(2*24*60*60*1000)" format="calendar"></js-timestamp><br/>-->
+<!--        </p>-->
+<!--        <h5 class="section-heading">In about two months</h5>-->
+<!--        <p>-->
+<!--          <js-timestamp :at="pageLoadedAt+(2*30*24*60*60*1000)"></js-timestamp><br/>-->
+<!--          <js-timestamp :at="pageLoadedAt+(2*30*24*60*60*1000)" format="timeago" short="true"></js-timestamp><br/>-->
+<!--          <js-timestamp :at="pageLoadedAt+(2*30*24*60*60*1000)" format="calendar"></js-timestamp><br/>-->
+<!--        </p>-->
+<!--        <h5 class="section-heading">In about two years</h5>-->
+<!--        <p>-->
+<!--          <js-timestamp :at="pageLoadedAt+(2*365*24*60*60*1000)"></js-timestamp><br/>-->
+<!--          <js-timestamp :at="pageLoadedAt+(2*365*24*60*60*1000)" format="timeago" short="true"></js-timestamp><br/>-->
+<!--          <js-timestamp :at="pageLoadedAt+(2*365*24*60*60*1000)" format="calendar"></js-timestamp><br/>-->
+<!--        </p>-->
+<!--      </div>-->
     </div>
+
+
     <div class="modal-footer flex-row-reverse justify-content-between">
       <button type="button" data-dismiss="modal" class="btn btn-info">Close</button>
-      <button type="button" data-dismiss="modal" class="btn btn-outline-info">Cancel</button>
     </div>
   </modal>
 </div>

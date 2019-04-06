@@ -65,8 +65,10 @@ module.exports.routes = {
   'POST  /api/v1/entrance/update-password-and-login':    { action: 'entrance/update-password-and-login' },
   'POST  /api/v1/deliver-contact-form-message':          { action: 'deliver-contact-form-message' },
 
+
   'GET /insuranceClaims':                               { controller: 'InsuranceClaimController', action: 'getInsuranceClaims'},
   'PUT /insuranceClaimStatus/:claimId':                 { controller: 'InsuranceClaimController', action: 'setInsuranceClaimStatus'},
   'GET /insuranceClaim/:claimId':                       { controller: 'InsuranceClaimController', action: 'getInsuranceClaim'},
 
+  'POST /insuranceClaim':                               { controller: 'InsuranceClaimController', action: 'addInsuranceClaim'}
 };
