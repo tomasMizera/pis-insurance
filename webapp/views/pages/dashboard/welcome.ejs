@@ -22,12 +22,12 @@
     </div>
     <div class="modal-body">
 
+      <form class="form-horizontal">
 
-      <form action="/insuranceClaim" method="POST">
           <!-- Multiple Checkboxes -->
           <div class="form-group">
-            <label class="control-label" for="reasonsForVisit">Reasons for visit</label>
-            <div>
+            <label class=" control-label" for="reasonsForVisit">Reasons for visit</label>
+            <div class="">
               <div class="checkbox">
                 <label for="reasonsForVisit-0">
                   <input type="checkbox" name="reasonsForVisit" id="reasonsForVisit-0" value="1">
@@ -49,36 +49,38 @@
             </div>
           </div>
 
+          <!-- Textarea -->
           <div class="form-group">
-            <label class="control-label" for="description">Description</label>
-            <div>
+            <label class=" control-label" for="description">Description</label>
+            <div class="">
               <textarea class="form-control" id="description" name="description">On the 25th of February my pet ...</textarea>
             </div>
           </div>
 
+          <!-- Search input-->
           <div class="form-group">
-            <label class="control-label" for="searchinput">Hospital / clinic</label>
-            <div>
-              <input id="searchinput" name="searchinput" type="search" placeholder="Name of the hospital" class="form-control input-md" required="">
+            <label class=" control-label" for="hospital">Hospital / clinic</label>
+            <div class="">
+              <input id="hospital" name="hospital" type="search" placeholder="Name of the hospital" class="form-control input-md" required="">
 
             </div>
           </div>
 
           <!-- Text input-->
           <div class="form-group">
-            <label class="control-label" for="textinput">Name of the doctor</label>
-            <div>
-              <input id="textinput" name="textinput" type="text" placeholder="Peter Maricovk" class="form-control input-md" required="">
+            <label class=" control-label" for="docName">Name of the doctor</label>
+            <div class="">
+              <input id="docName" name="docName" type="text" placeholder="Peter Maricovk" class="form-control input-md" required="">
               <span class="help-block">Only type name, not degree. If more doctors were involved, split names with comma</span>
             </div>
           </div>
 
           <!-- Appended Input-->
           <div class="form-group">
-            <label class="control-label" for="appendedtext">Treatment started</label>
-            <div>
+            <label class=" control-label" for="dateFrom">Treatment started</label>
+            <div class="">
               <div class="input-group">
-                <input id="appendedtext" name="appendedtext" class="form-control" placeholder="18-02-2019" type="text" required="">
+                <input id="dateFrom" name="dateFrom" class="form-control" placeholder="18-02-2019" type="text" required="">
                 <span class="input-group-addon">select date</span>
               </div>
 
@@ -86,10 +88,10 @@
           </div>
           <!-- Appended Input-->
           <div class="form-group">
-            <label class="control-label" for="appendedtext">Treatment ended</label>
-            <div>
+            <label class=" control-label" for="dateTo">Treatment ended</label>
+            <div class="">
               <div class="input-group">
-                <input id="appendedtext" name="appendedtext" class="form-control" placeholder="18-03-2019" type="text">
+                <input id="dateTo" name="dateTo" class="form-control" placeholder="18-03-2019" type="text">
                 <span class="input-group-addon">select date</span>
               </div>
 
@@ -97,33 +99,33 @@
           </div>
           <!-- File Button -->
           <div class="form-group">
-            <label class="control-label" for="descFileButton">Description of insurance event</label>
-            <div>
+            <label class=" control-label" for="descFileButton">Description of insurance event</label>
+            <div class="">
               <input id="descFileButton" name="descFileButton" class="input-file" type="file">
             </div>
           </div>
 
           <!-- File Button -->
           <div class="form-group">
-            <label class="control-label" for="vetDocButton">Vet report</label>
-            <div>
+            <label class=" control-label" for="vetDocButton">Vet report</label>
+            <div class="">
               <input id="vetDocButton" name="vetDocButton" class="input-file" type="file">
             </div>
           </div>
 
           <!-- Text input-->
           <div class="form-group">
-            <label class="control-label" for="textinput">Total cost</label>
-            <div>
-              <input id="textinput" name="textinput" type="text" placeholder="39,5€" class="form-control input-md" required="">
+            <label class=" control-label" for="invoice">Total cost</label>
+            <div class="">
+              <input id="invoice" name="invoice" type="text" placeholder="--€" class="form-control input-md" required="">
               <span class="help-block">In euros, only type number, not euro sign</span>
             </div>
           </div>
 
           <!-- Multiple Radios (inline) -->
           <div class="form-group">
-            <label class="control-label" for="radios">Money recipient</label>
-            <div>
+            <label class=" control-label" for="radios">Money recipient</label>
+            <div class="">
               <label class="radio-inline" for="radios-0">
                 <input type="radio" name="radios" id="radios-0" value="1" checked="checked">
                 Pay to me
@@ -135,91 +137,56 @@
             </div>
           </div>
 
-          <!-- Button -->
-          <div class="form-group">
-            <label class="control-label" for="submitButton"></label>
-            <div>
-              <button id="submitButton" name="submitButton" class="btn btn-success">Submit</button>
-            </div>
-          </div>
       </form>
-
-<!--      <h5 class="section-heading">Chapter 1: Loomings.</h5>-->
-<!--      <p>Call me Ishmael. Some years ago—never mind how long precisely—having little or no money in my purse, and nothing particular to interest me on shore, I thought I would sail about a little and see the watery part of the world. It is a way I have of driving off the spleen and regulating the circulation. Whenever I find myself growing grim about the mouth; whenever it is a damp, drizzly November in my soul; whenever I find myself involuntarily pausing before coffin warehouses, and bringing up the rear of every funeral I meet; and especially whenever my hypos get such an upper hand of me, that it requires a strong moral principle to prevent me from deliberately stepping into the street, and methodically knocking people's hats off—then, I account it high time to get to sea as soon as I can. This is my substitute for pistol and ball. With a philosophical flourish Cato throws himself upon his sword; I quietly take to the ship. There is nothing surprising in this. If they but knew it, almost all men in their degree, some time or other, cherish very nearly the same feelings towards the ocean with me.</p>-->
-<!--      <div class="js-timestamp-examples">-->
-<!--        <h5 class="section-heading">About 2 years ago</h5>-->
-<!--        <p>-->
-<!--          <js-timestamp :at="pageLoadedAt-(2*365*24*60*60*1000)"></js-timestamp><br/>-->
-<!--          <js-timestamp :at="pageLoadedAt-(2*365*24*60*60*1000)" format="timeago" short="true"></js-timestamp><br/>-->
-<!--          <js-timestamp :at="pageLoadedAt-(2*365*24*60*60*1000)" format="calendar"></js-timestamp><br/>-->
-<!--        </p>-->
-<!--        <h5 class="section-heading">About 2 months ago</h5>-->
-<!--        <p>-->
-<!--          <js-timestamp :at="pageLoadedAt-(2*30*24*60*60*1000)"></js-timestamp><br/>-->
-<!--          <js-timestamp :at="pageLoadedAt-(2*30*24*60*60*1000)" format="timeago" short="true"></js-timestamp><br/>-->
-<!--          <js-timestamp :at="pageLoadedAt-(2*30*24*60*60*1000)" format="calendar"></js-timestamp><br/>-->
-<!--        </p>-->
-<!--        <h5 class="section-heading">2 days ago</h5>-->
-<!--        <p>-->
-<!--          <js-timestamp :at="pageLoadedAt-(2*24*60*60*1000)"></js-timestamp><br/>-->
-<!--          <js-timestamp :at="pageLoadedAt-(2*24*60*60*1000)" format="timeago" short="true"></js-timestamp><br/>-->
-<!--          <js-timestamp :at="pageLoadedAt-(2*24*60*60*1000)" format="calendar"></js-timestamp><br/>-->
-<!--        </p>-->
-<!--        <h5 class="section-heading">2 hours ago</h5>-->
-<!--        <p>-->
-<!--          <js-timestamp :at="pageLoadedAt-(2*60*60*1000)"></js-timestamp><br/>-->
-<!--          <js-timestamp :at="pageLoadedAt-(2*60*60*1000)" format="timeago" short="true"></js-timestamp><br/>-->
-<!--          <js-timestamp :at="pageLoadedAt-(2*60*60*1000)" format="calendar"></js-timestamp><br/>-->
-<!--        </p>-->
-<!--        <h5 class="section-heading">15 minutes ago</h5>-->
-<!--        <p>-->
-<!--          <js-timestamp :at="pageLoadedAt-(15*60*1000)"></js-timestamp><br/>-->
-<!--          <js-timestamp :at="pageLoadedAt-(15*60*1000)" format="timeago" short="true"></js-timestamp><br/>-->
-<!--          <js-timestamp :at="pageLoadedAt-(15*60*1000)" format="calendar"></js-timestamp><br/>-->
-<!--        </p>-->
-<!--        <h5 class="section-heading">45 seconds ago</h5>-->
-<!--        <p>-->
-<!--          <js-timestamp :at="pageLoadedAt-(45*1000)"></js-timestamp><br/>-->
-<!--          <js-timestamp :at="pageLoadedAt-(45*1000)" format="timeago" short="true"></js-timestamp><br/>-->
-<!--          <js-timestamp :at="pageLoadedAt-(45*1000)" format="calendar"></js-timestamp><br/>-->
-<!--        </p>-->
-<!--        <h5 class="section-heading">Right now</h5>-->
-<!--        <p>-->
-<!--          <js-timestamp :at="pageLoadedAt"></js-timestamp><br/>-->
-<!--          <js-timestamp :at="pageLoadedAt" format="timeago" short="true"></js-timestamp><br/>-->
-<!--          <js-timestamp :at="pageLoadedAt" format="calendar"></js-timestamp><br/>-->
-<!--        </p>-->
-<!--        <h5 class="section-heading">In an hour</h5>-->
-<!--        <p>-->
-<!--          <js-timestamp :at="pageLoadedAt+(60*60*1000)"></js-timestamp><br/>-->
-<!--          <js-timestamp :at="pageLoadedAt+(60*60*1000)" format="timeago" short="true"></js-timestamp><br/>-->
-<!--          <js-timestamp :at="pageLoadedAt+(60*60*1000)" format="calendar"></js-timestamp><br/>-->
-<!--        </p>-->
-<!--        <h5 class="section-heading">In two days</h5>-->
-<!--        <p>-->
-<!--          <js-timestamp :at="pageLoadedAt+(2*24*60*60*1000)"></js-timestamp><br/>-->
-<!--          <js-timestamp :at="pageLoadedAt+(2*24*60*60*1000)" format="timeago" short="true"></js-timestamp><br/>-->
-<!--          <js-timestamp :at="pageLoadedAt+(2*24*60*60*1000)" format="calendar"></js-timestamp><br/>-->
-<!--        </p>-->
-<!--        <h5 class="section-heading">In about two months</h5>-->
-<!--        <p>-->
-<!--          <js-timestamp :at="pageLoadedAt+(2*30*24*60*60*1000)"></js-timestamp><br/>-->
-<!--          <js-timestamp :at="pageLoadedAt+(2*30*24*60*60*1000)" format="timeago" short="true"></js-timestamp><br/>-->
-<!--          <js-timestamp :at="pageLoadedAt+(2*30*24*60*60*1000)" format="calendar"></js-timestamp><br/>-->
-<!--        </p>-->
-<!--        <h5 class="section-heading">In about two years</h5>-->
-<!--        <p>-->
-<!--          <js-timestamp :at="pageLoadedAt+(2*365*24*60*60*1000)"></js-timestamp><br/>-->
-<!--          <js-timestamp :at="pageLoadedAt+(2*365*24*60*60*1000)" format="timeago" short="true"></js-timestamp><br/>-->
-<!--          <js-timestamp :at="pageLoadedAt+(2*365*24*60*60*1000)" format="calendar"></js-timestamp><br/>-->
-<!--        </p>-->
-<!--      </div>-->
     </div>
 
 
     <div class="modal-footer flex-row-reverse justify-content-between">
-      <button type="button" data-dismiss="modal" class="btn btn-info">Close</button>
+      <button onclick="send()" class="btn btn-success">Submit</button>
+      <button id="closeButton" type="button" data-dismiss="modal" class="btn btn-alert">Close</button>
     </div>
   </modal>
 </div>
+
+<script>
+  function getValue(element) {
+    return document.getElementById(element).value;
+  }
+
+  function getCheckedId() {
+    if (document.getElementById('reasonsForVisit-0').checked)
+      return 0;
+
+    if (document.getElementById('reasonsForVisit-1').checked)
+      return 1;
+
+    if (document.getElementById('reasonsForVisit-2').checked)
+      return 2;
+  }
+
+  function send() {
+    console.log('sending');
+
+    data = {
+      description: getValue('description'),
+      hospital: getValue('hospital'),
+      docName: getValue('docName'),
+      invoice: getValue('invoice'),
+      vetDocButton: getValue('vetDocButton'),
+      descFileButton: getValue('descFileButton'),
+      dateFrom: getValue('dateFrom'),
+      dateTo: getValue('dateTo'),
+  }
+
+    io.socket.post('/insuranceClaim', data, function (resData, jwRes) {
+      if (jwRes.statusCode === 200) {
+        document.getElementById('closeButton').click();
+
+      } else {
+        alert("Wrong input!");
+        window.location.replace('/welcome');
+      }
+    });
+  }
+</script>
 <%- /* Expose locals as `window.SAILS_LOCALS` :: */ exposeLocalsToBrowser() %>

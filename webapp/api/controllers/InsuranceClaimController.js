@@ -1,30 +1,40 @@
+async function addClaim(req, res) {
+  sails.log('Adding new insurance claim.');
+  console.log(req.body);
+  // description: getValue('description'),
+  //   hospital: getValue('hospital'),
+  //   docName: getValue('docName'),
+  //   invoice: getValue('invoice'),
+  //   vetDocButton: getValue('vetDocButton'),
+  //   descFileButton: getValue('descFileButton'),
+  //   dateFrom: getValue('dateFrom'),
+  //   dateTo: getValue('dateTo'),
 
+  var createdInsurance = await InsuranceClaim.create({
+    invoice_total: req.body.invoice,
+    description: req.body.description,
+    hospital_clinic: req.body.hospital,
+    treatment_from: req.body.dateFrom,
+    treatment_to: req.body.dateTo,
 
+    date: '2000-02-20',
+    owner_id: req.me.id,
 
-async function newInsuranceClaim(req, res) {
-    // add to db, based on blah blah blah
-    console.log('received request for a new insurance claim');
-    console.log(req.body)
+  }).fetch();
 
-    // var createdInsurance = await InsuranceClaim.create({
-    //   invoice_total: '123',
-    //   description: 'Test insert Description',
-    //   hospital_clinic: 'Saint Dominik Hospital',
-    //   treatment_from: '2000-02-20',
-    //   treatment_to: '2000-02-20',
-    //   date: '2000-02-20',
-    // }).fetch();
-    //
-    // sails.log('New id is:', createdInsurance.id);
-    res.view("pages/dashboard/submited")
+  sails.log('New id is:', createdInsurance.id);
+  sails.log('Insurance claim successfully added.')
 }
-
 
 module.exports = {
 
-    // handles new insurance claim report
-    addInsuranceClaim: (req, res) => { 
-        newInsuranceClaim(req, res);
+    addInsuranceClaim: (req, res) => {
+        addClaim(req, res).then((data) => {
+          res.ok();
+        })
+        .catch((err) => {
+          res.serverError();
+        });
     },
 
     getInsuranceClaims: (req, res) => {
@@ -38,4 +48,4 @@ module.exports = {
     updateInsuranceClaim: (req, res) => {
         
     }
-}
+};
