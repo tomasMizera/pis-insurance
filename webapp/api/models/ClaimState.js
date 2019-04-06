@@ -11,7 +11,7 @@ module.exports = {
     //  ╔═╗╦═╗╦╔╦╗╦╔╦╗╦╦  ╦╔═╗╔═╗
     //  ╠═╝╠╦╝║║║║║ ║ ║╚╗╔╝║╣ ╚═╗
     //  ╩  ╩╚═╩╩ ╩╩ ╩ ╩ ╚╝ ╚═╝╚═╝
-    pet_name: {
+    state: {
       type: 'string',
       required: true,
       description: 'Name of the state.',
@@ -28,7 +28,7 @@ module.exports = {
     //  ╩ ╩╚═╝╚═╝╚═╝╚═╝╩╩ ╩ ╩ ╩╚═╝╝╚╝╚═╝
     insurace_claims: {
       collection: 'insuranceclaim',
-      via: 'state_id'
+      via: 'state_id',
     },
 
   },
