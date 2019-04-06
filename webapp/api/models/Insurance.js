@@ -51,6 +51,11 @@ module.exports = {
       model: 'pettype',
     },
 
+    insurance_claims: {
+      collection: 'insuranceClaim',
+      via: 'insurance_id',
+    }
+
   },
 
 
