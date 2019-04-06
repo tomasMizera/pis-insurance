@@ -10,6 +10,30 @@ async function addClaim(req, res) {
   //   dateFrom: getValue('dateFrom'),
   //   dateTo: getValue('dateTo'),
 
+  function getCurrentDate() {
+    var today = new Date();
+    var dd = today.getDate();
+
+    var mm = today.getMonth()+1;
+    var yyyy = today.getFullYear();
+    if(dd<10)
+    {
+      dd='0'+dd;
+    }
+
+    if(mm<10)
+    {
+      mm='0'+mm;
+    }
+
+    return yyyy+'-'+mm+'-'+dd;
+  }
+
+  my_insurance_ids = await Insurance.find({ owner_id: req.me.id - 1});
+  first_in_id = my_insurance_ids[0].id;
+
+  console.log(req.file('vetDocButton'));
+
   var createdInsurance = await InsuranceClaim.create({
     invoice_total: req.body.invoice,
     description: req.body.description,
@@ -17,8 +41,9 @@ async function addClaim(req, res) {
     treatment_from: req.body.dateFrom,
     treatment_to: req.body.dateTo,
 
-    date: '2000-02-20',
+    date: getCurrentDate(),
     owner_id: req.me.id,
+    insurance_id: first_in_id,
 
   }).fetch();
 
@@ -33,6 +58,7 @@ module.exports = {
           res.ok();
         })
         .catch((err) => {
+          console.log(err);
           res.serverError();
         });
     },

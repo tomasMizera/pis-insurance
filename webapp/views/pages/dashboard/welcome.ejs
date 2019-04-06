@@ -172,7 +172,7 @@
       hospital: getValue('hospital'),
       docName: getValue('docName'),
       invoice: getValue('invoice'),
-      vetDocButton: getValue('vetDocButton'),
+      vetDocButton: document.getElementById('vetDocButton').files[0].name,
       descFileButton: getValue('descFileButton'),
       dateFrom: getValue('dateFrom'),
       dateTo: getValue('dateTo'),
@@ -181,12 +181,26 @@
     io.socket.post('/insuranceClaim', data, function (resData, jwRes) {
       if (jwRes.statusCode === 200) {
         document.getElementById('closeButton').click();
-
+        window.location.replace('/welcome/submited');
       } else {
         alert("Wrong input!");
-        window.location.replace('/welcome');
       }
     });
+
+    // io.socket.request({
+    //   method: 'post',
+    //   url: '/insuranceClaim',
+    //   headers: {
+    //     'Content-Type': 'multipart/form-data',
+    //   }
+    // }, function (resData, jwres) {
+    //   if (jwres.statusCode === 200) {
+    //     document.getElementById('closeButton').click();
+    //     window.location.replace('/welcome/submited');
+    //   } else {
+    //     alert("Wrong input!");
+    //   }
+    // });
   }
 </script>
 <%- /* Expose locals as `window.SAILS_LOCALS` :: */ exposeLocalsToBrowser() %>
