@@ -77,12 +77,6 @@ module.exports = {
     insurance_id: {
       model: 'insurance',
     },
-
-    action_codes: {
-      collection: 'actioncode',
-      via: 'insurace_claims'
-    }
-
   },
 
 

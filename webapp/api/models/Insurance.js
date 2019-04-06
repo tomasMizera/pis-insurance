@@ -54,6 +54,11 @@ module.exports = {
     insurance_claims: {
       collection: 'insuranceClaim',
       via: 'insurance_id',
+    },
+
+    action_codes: {
+      collection: 'actioncode',
+      via: 'insuraces'
     }
 
   },
