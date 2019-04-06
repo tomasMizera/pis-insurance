@@ -8,7 +8,12 @@ function newInsuranceClaim(req, res) {
 function getInsuranceClaimDetails(req, res) {
     InsuranceClaim.getDetailOf(req.param('claimId'))
     .then((data) => {
-        return res.view('pages/insuranceClaimForEmployee', {claimData: data});
+        allData = {
+            claimData: data,
+            // ownerData: owner
+        };
+        // allData.claimData.date = String(allData.claimData.date.split(' ').splice(1,3));
+        return res.view('pages/insuranceClaimForEmployee', allData);
     })
     .catch((err) => {
         return res.serverError('Ooops.. something wrong happened on the server: ' + err);

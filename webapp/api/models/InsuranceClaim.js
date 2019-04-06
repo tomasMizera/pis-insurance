@@ -11,6 +11,13 @@ module.exports = {
     if (!entry) {
       throw new Error('no such entry in db');
     }
+
+    // let ownerData = await Owner.findOne({id: entry.owner_id}).populate('insurace_claims');
+    // if (!ownerData) {
+    //   throw new Error('no such entry in db');
+    // }
+    // console.log(ownerData);
+
     return entry;
   },
 
