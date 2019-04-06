@@ -6,17 +6,16 @@ function newInsuranceClaim(req, res) {
 }
 
 function getInsuranceClaimDetails(req, res) {
-    InsuranceClaim.getDetailOf(req.param('claimId'))
-    .then((data) => {
-        allData = {
-            claimData: data,
-            // ownerData: owner
-        };
-        // allData.claimData.date = String(allData.claimData.date.split(' ').splice(1,3));
-        return res.view('pages/insuranceClaimForEmployee', allData);
+    Promise.all([InsuranceClaim.getDetailOf(req.param('claimId')), Vet.getAll()])
+    .then((datas) => {
+        retObj = {
+            claimData: datas[0],
+            vets: datas[1]
+        }
+        res.view('pages/insuranceClaimForEmployee', retObj);
     })
     .catch((err) => {
-        return res.serverError('Ooops.. something wrong happened on the server: ' + err);
+        res.serverError('Ooops.. something wrong happened on the server: ' + err);
     });
 }
 
@@ -47,7 +46,7 @@ module.exports = {
     },
 
     updateInsuranceClaim: (req, res) => {
-
+        
     }
 
 

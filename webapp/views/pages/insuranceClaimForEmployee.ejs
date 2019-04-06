@@ -62,35 +62,29 @@
     <button type="button" class="btn btn-outline-secondary">Download Vet report</button>
     
     <!-- Form -->
-    <form class="form-horizontal">
+    <form class="form-horizontal" action="/updateInsuranceClaim" method="POST">
         <fieldset>
             <!-- Button Drop Down -->
-            <label for="buttondropdown">Type in all action codes</label>
+            <label for="buttondropdown">Type in all action codes, use comma without spaces if you need to add multiple codes</label>
             <div class="form-group">
                 <div class="col-md-4">
                     <div class="input-group">
-                        <input id="buttondropdown" name="buttondropdown" class="form-control" placeholder="39U5" type="text">
-                    </div>
-                </div>
-            </div>
-            
-            <!-- Button Drop Down -->
-            <div class="form-group">
-                <div class="col-md-4">
-                    <div class="input-group">
-                        <input id="buttondropdown" name="buttondropdown" class="form-control" placeholder="98U6" type="text">
+                        <input id="buttondropdown" name="codes" class="form-control" placeholder="39U5,64PP,..." type="text" required>
                     </div>
                 </div>
             </div>
             
             <div class="form-group">
                 <label for="exampleFormControlSelect2">Choose a corresponding vet</label>
-                <select multiple class="form-control" id="exampleFormControlSelect2">
-                    <option>1</option>
-                    <option>2</option>
-                    <option>3</option>
-                    <option>4</option>
-                    <option>5</option>
+                <select multiple class="form-control" id="exampleFormControlSelect2" name="vet" required>
+                    <% for (let i = 0; i < vets.length; i++) { %>
+                        <option>
+                            <%= vets[i].id %>:
+                            <%= vets[i].first_name %>
+                            <%= vets[i].last_name %>,
+                            <%= vets[i].address %>
+                        </option>
+                        <% } %>
                 </select>
             </div>
             
@@ -98,14 +92,14 @@
             <div class="form-group">
                 <label class="col-md-4 control-label" for="singlebutton"></label>
                 <div class="col-md-4">
-                    <button id="singlebutton" name="singlebutton" class="btn btn-success">Check codes</button>
+                    <button id="singlebutton" type="submit" class="btn btn-success">Check codes & set Vet</button>
                 </div>
             </div>
         </fieldset>
     </form>
 </div>
-
-<!-- $('#select').empty();
+<!-- 
+$('#select').empty();
     $.each(options, function(i, p) {
         $('#select').append($('<option></option>').val(p).html(p));
     }); -->
