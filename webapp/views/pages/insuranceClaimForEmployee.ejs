@@ -1,0 +1,95 @@
+
+  <!-- Latest compiled and minified CSS -->
+  <!-- <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css"> -->
+
+  <!-- jQuery library -->
+  <!-- <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script> -->
+
+  <!-- Latest compiled JavaScript -->
+  <!-- <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script> -->
+
+
+
+<!-- Form Name -->
+<fieldset>
+<legend>
+    <div class="col-md-4">
+        <h2>Insurance claim #<%= claimData.id %></h2>
+    </div>
+</legend>
+</fieldset>
+
+
+<!-- anonymous {
+    createdAt: 1554554027750,
+    updatedAt: 1554554027750,
+    id: 1,
+    date: 2000-02-19T23:00:00.000Z,
+    treatment_from: 2000-02-19T23:00:00.000Z,
+    treatment_to: 2000-02-19T23:00:00.000Z,
+    hospital_clinic: 'Saint Dominik Hospital',
+    description: 'Test insert Description',
+    invoice_total: 123,
+    owner_id: null,
+    vet_id: null,
+    report_id: null,
+    state_id: null } -->
+
+<!-- Textarea -->
+<div class="form-group">
+  <div class="col-md-4">                     
+    <b><i>Owner information</i></b>
+  </div>
+</div>
+<div class="col-md-4">                     
+        <b><i>Insurance claim detail</i></b>
+            <p><%= claimData.date %></p>
+            <p><%= claimData.treatment_from %></p>
+            <p><%= claimData.treatment_to %></p>
+            <p><%= claimData.hospital_clinic %></p>
+            <p><%= claimData.invoice_total %></p>
+            <p><%= claimData.description %></p>
+      </div>
+<div class="form-group">
+  <label class="col-md-4 control-label" for="singlebutton"></label>
+  <div class="col-md-4">
+    <button id="singlebutton" name="singlebutton" class="btn btn-success">Download Vet report</button>
+  </div>
+</div>
+
+<form class="form-horizontal">
+<fieldset>
+<!-- Button Drop Down -->
+<div class="form-group">
+  <label class="col-md-4 control-label" for="buttondropdown">Code 1</label>
+  <div class="col-md-4">
+    <div class="input-group">
+      <input id="buttondropdown" name="buttondropdown" class="form-control" placeholder="39U5" type="text">
+    </div>
+  </div>
+</div>
+
+<!-- Button Drop Down -->
+<div class="form-group">
+  <label class="col-md-4 control-label" for="buttondropdown">Code 2</label>
+  <div class="col-md-4">
+    <div class="input-group">
+      <input id="buttondropdown" name="buttondropdown" class="form-control" placeholder="98U6" type="text">
+    </div>
+  </div>
+</div>
+
+<!-- Button -->
+<div class="form-group">
+  <label class="col-md-4 control-label" for="singlebutton"></label>
+  <div class="col-md-4">
+    <button id="singlebutton" name="singlebutton" class="btn btn-success">Check codes</button>
+  </div>
+</div>
+
+</form>
+
+<!-- $('#select').empty();
+$.each(options, function(i, p) {
+    $('#select').append($('<option></option>').val(p).html(p));
+}); -->

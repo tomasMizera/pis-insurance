@@ -5,8 +5,14 @@ function newInsuranceClaim(req, res) {
     res.view('pages/homepage');
 }
 
-async function getInsuranceClaimDetails(req, res) {
-    throw new Error('It failed!');
+function getInsuranceClaimDetails(req, res) {
+    InsuranceClaim.getDetailOf(req.param('claimId'))
+    .then((data) => {
+        return res.view('pages/insuranceClaimForEmployee', {claimData: data});
+    })
+    .catch((err) => {
+        return res.serverError('Ooops.. something wrong happened on the server: ' + err);
+    });
 }
 
 module.exports = {
@@ -21,13 +27,7 @@ module.exports = {
     },
 
     getInsuranceClaim: (req, res) => {
-        getInsuranceClaimDetails(req, res)
-        .then((data) => {
-            res.view('pages/insuranceClaimForEmployee',data);
-        })
-        .catch((err) => {
-            res.serverError('Ooops.. something wrong happened on the server: ' + err);
-        });
+        getInsuranceClaimDetails(req, res);
     },
 
     setInsuranceClaimStatus: (req, res) => {
