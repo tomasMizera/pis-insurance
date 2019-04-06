@@ -1,3 +1,9 @@
 <div>
-  test
+  <div class="control-group">
+    <ul>
+      <% _.each(claims, function(claim) {%>
+        <a href="/insuranceClaim/<%=claim.id%>"><li><%=claim.hospital_clinic%></li></a>
+      <% }) %>
+    </ul>
+  </div>
 </div>

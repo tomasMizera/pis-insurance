@@ -9,11 +9,18 @@ function newInsuranceClaim(req, res) {
 module.exports = {
 
     // handles new insurance claim report
-    addInsuranceClaim: (req, res) => { 
+    addInsuranceClaim: (req, res) => {
         newInsuranceClaim(req, res);
     },
 
     getInsuranceClaims: (req, res) => {
+
+      InsuranceClaim.find(function(err, claims){
+        res.view('pages/claims', {claims: claims});
+      });
+
+
+
 
     },
 
@@ -22,6 +29,6 @@ module.exports = {
     },
 
     updateInsuranceClaim: (req, res) => {
-        
+
     }
 }
