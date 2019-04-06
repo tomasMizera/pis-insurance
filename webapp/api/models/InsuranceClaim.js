@@ -7,18 +7,24 @@
 module.exports = {
 
   getDetailOf: async function(_id) {
-    let entry = await InsuranceClaim.findOne({id: Number(_id)});
+    let entry = await InsuranceClaim.findOne({id: _id});
     if (!entry) {
       throw new Error('no such entry in db');
     }
 
-    // let ownerData = await Owner.findOne({id: entry.owner_id}).populate('insurace_claims');
-    // if (!ownerData) {
-    //   throw new Error('no such entry in db');
-    // }
-    // console.log(ownerData);
-
     return entry;
+  },
+
+  updateEntry: async function(_id, _key, _value) {
+    let oBj = {};
+    oBj[_key] = _value;
+
+    let updatedEntry = await InsuranceClaim.update({id: _id}, oBj).fetch();
+
+    if (!updatedEntry) {
+      throw new Error('Update unsuccessfull!');
+    }
+    return updatedEntry;
   },
 
   attributes: {

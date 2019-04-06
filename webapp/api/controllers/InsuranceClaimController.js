@@ -6,7 +6,7 @@ function newInsuranceClaim(req, res) {
 }
 
 function getInsuranceClaimDetails(req, res) {
-    Promise.all([InsuranceClaim.getDetailOf(req.param('claimId')), Vet.getAll()])
+    Promise.all([InsuranceClaim.getDetailOf(Number(req.param('claimId'))), Vet.getAll()])
     .then((datas) => {
         retObj = {
             claimData: datas[0],
@@ -16,6 +16,31 @@ function getInsuranceClaimDetails(req, res) {
     })
     .catch((err) => {
         res.serverError('Ooops.. something wrong happened on the server: ' + err);
+    });
+}
+
+function updateInsuranceClaimDetails(req, res) {
+    let claimId = Number(req.body.claimId);
+    let actionCodes = req.body.codes;
+    let vet = req.body.vet;
+
+    if (!actionCodes || !claimId || !vet) {
+        res.badRequest('Values you passed are not valid!');
+    }
+    actionCodes = actionCodes.split(',');
+
+    // Parse id of vet
+    vet = Number(vet.split(':')[0]);
+    
+    Promise.all([
+        InsuranceClaim.updateEntry(claimId, 'vet_id', vet),
+        Insurance.areCodesCoveredByInsurance(claimId, actionCodes)
+    ])
+    .then((responseData) => {
+        res.status(200).send(responseData);
+    })
+    .catch((err) => {
+        res.serverError('Something failed .. try again later - ' + err);
     });
 }
 
@@ -46,9 +71,8 @@ module.exports = {
     },
 
     updateInsuranceClaim: (req, res) => {
-        
+        updateInsuranceClaimDetails(req, res);
     }
-
 
     // Just wanted to add dump data to db 
     // await Vet.create({

@@ -6,6 +6,19 @@
 
 module.exports = {
 
+  areCodesCoveredByInsurance: async function (_claimId, _codes) {
+    let iClaim = await InsuranceClaim.getDetailOf(_claimId);
+    let insurance = await Insurance.findOne({id: iClaim.insurance_id});
+    
+    if(!insurance) {
+      throw new Error('No such insurance found');
+    }
+
+    
+
+    return insurance;
+  },
+  
   attributes: {
 
     //  ╔═╗╦═╗╦╔╦╗╦╔╦╗╦╦  ╦╔═╗╔═╗
