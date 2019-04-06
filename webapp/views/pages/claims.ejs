@@ -1,9 +1,32 @@
-<div>
-  <div class="control-group">
-    <ul>
-      <% _.each(claims, function(claim) {%>
-        <a href="/insuranceClaim/<%=claim.id%>"><li><%=claim.hospital_clinic%></li></a>
-      <% }) %>
-    </ul>
-  </div>
+<div class="container">
+
+  <table class="table table-striped">
+    <thead>
+    <tr>
+      <th scope="col">ID</th>
+      <th scope="col">Clinic</th>
+      <th scope="col">Date</th>
+      <th scope="col">Description</th>
+      <th scope="col"></th>
+    </tr>
+    </thead>
+
+    <tbody>
+    <% _.each(claims, function(claim) {%>
+
+    <tr>
+      <th scope="row"><%=claim.id%> </th>
+      <td><%=claim.hospital_clinic%></td>
+      <td><%=claim.date%></td>
+      <td><%=claim.description%></td>
+      <td><a href = '/insuranceClaim/<%=claim.id%>'>Detail</a></td>
+
+    </tr>
+
+    <% }) %>
+    </tbody>
+  </table>
+
+
+
 </div>

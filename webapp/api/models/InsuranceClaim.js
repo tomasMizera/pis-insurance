@@ -47,7 +47,7 @@ module.exports = {
     invoice_total: {
       type: 'number',
       required: true,
-      description: 'Total money to be payed.'
+      description: 'Total money to be paid.'
     },
 
     //  ╔═╗╔╦╗╔╗ ╔═╗╔╦╗╔═╗
