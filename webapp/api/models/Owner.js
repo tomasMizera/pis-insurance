@@ -47,14 +47,14 @@ module.exports = {
 
     date_of_birth: {
       type: 'string',
-      columnType: 'date',
+      // columnType: 'date',
       required: true,
       description: 'Date of birth.'
     },
 
     client_since: {
       type: 'string',
-      columnType: 'date',
+      // columnType: 'date',
       required: true,
       description: 'A JS timestamp (epoch ms) representing the moment at which this user most recently interacted with the backend while logged in (or 0 if they have not interacted with the backend at all yet).'
     },

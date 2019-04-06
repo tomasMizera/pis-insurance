@@ -21,21 +21,21 @@ module.exports = {
     //  ╩  ╩╚═╩╩ ╩╩ ╩ ╩ ╚╝ ╚═╝╚═╝
     date: {
       type: 'string',
-      columnType: 'date',
+      // columnType: 'date',
       required: true,
       description: 'Date of submission.'
     },
 
     treatment_from: {
       type: 'string',
-      columnType: 'date',
+      // columnType: 'date',
       required: true,
       description: 'Start of the treatment.'
     },
 
     treatment_to: {
       type: 'string',
-      columnType: 'date',
+      // columnType: 'date',
       required: true,
       description: 'End of the treatment.'
     },
@@ -80,6 +80,10 @@ module.exports = {
 
     state_id: {
       model: 'claimstate'
+    },
+
+    insurance_id: {
+      model: 'insurance',
     },
 
     action_codes: {
