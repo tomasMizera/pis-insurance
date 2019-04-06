@@ -7,7 +7,7 @@
       <th scope="col">Clinic</th>
       <th scope="col">Date</th>
       <th scope="col">Description</th>
-      <th scope="col"></th>
+      <th scope="col">State</th>
     </tr>
     </thead>
 
@@ -19,7 +19,7 @@
       <td><%=claim.hospital_clinic%></td>
       <td><%=claim.date%></td>
       <td><%=claim.description%></td>
-      <td><a href = '/insuranceClaim/<%=claim.id%>'>Detail</a></td>
+      <td><a href = '/insuranceClaim/<%=claim.id%>'><%=claim.state_id.state%></a></td>
 
     </tr>
 

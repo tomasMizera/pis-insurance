@@ -24,7 +24,7 @@ module.exports = {
 
     getInsuranceClaims: (req, res) => {
 
-      InsuranceClaim.find(function(err, claims){
+      InsuranceClaim.find().populate("state_id").exec(function(err, claims){
         res.view('pages/claims', {claims: claims});
       });
 
