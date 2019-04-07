@@ -18,7 +18,6 @@ function getInsuranceClaimDetails(req, res) {
         
         retObj = data[1];
         retObj.insuranceCodes = data[0];
-        console.log(retObj)
         res.view('pages/insuranceClaimForEmployee', retObj);
     })
     .catch((err) => {
@@ -56,11 +55,29 @@ function getFinalizedClaim(req, res) {
     Insurance.isClaimCoveredByInsurance(Number(req.param('claimId')), [])
     .then((data) => {
         console.log(data);
-        res.view('pages/insuranceClaimAfterCheck', data);
+        setTimeout(() => {
+            res.view('pages/insuranceClaimAfterCheck', data);
+        }, 3000);
     })
     .catch((err) => {
         res.serverError(err);
     })
+}
+
+function provideStateChangeOfClaim(req, res) {
+    let decision = req.param('decision');
+    let op = 1;
+
+    if (decision == 'accept') {
+        op = 3;
+    } else if (decision == 'reject') {
+        op = 2;
+    }
+
+    InsuranceClaim.updateEntry(Number(req.param('claimId')), 'state_id', op)
+    .then(() => {getFinalizedClaim(req, res)})
+    .then(() => {})
+    .catch((err) => res.serverError(err));
 }
 
 module.exports = {
@@ -82,7 +99,7 @@ module.exports = {
     },
 
     setInsuranceClaimStatus: (req, res) => {
-
+        provideStateChangeOfClaim(req, res);
     },
 
     updateInsuranceClaim: (req, res) => {

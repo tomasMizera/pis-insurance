@@ -61,7 +61,7 @@
             </tr>
             <tr>
                 <th scope="row">Total price</th>
-                <td><%= claimData.invoice_total %></td>
+                <td><%= claimData.invoice_total %>€</td>
             </tr>
             <tr>
                 <th scope="row">Description</th>
@@ -85,7 +85,7 @@
         <br>
         
         <!-- Form -->
-        <form class="form-horizontal" action="/updateClaim" method="POST">
+        <form id="formToSet" class="form-horizontal" action="/updateClaim" method="POST" onsubmit="showLoader()">
             <fieldset>
                 <!-- Button Drop Down -->
                 <label for="buttondropdown">Type in all action codes of this insurance claim</label>
@@ -115,15 +115,33 @@
                             <% } %>
                         </select>
                     </div>
-                    
+
                     <!-- Button -->
                     <div class="form-group">
                         <label class="col-md-4 control-label" for="singlebutton"></label>
                         <div class="col-md-4">
-                            <button id="singlebutton" type="submit" class="btn btn-success">Check codes & set Vet</button>
+                            <button id="singlebutton" type="submit" class="btn btn-primary" style="min-width: 50px">
+                                Check codes & set Vet
+                            </button>
+                            
                         </div>
                     </div>
                 </fieldset>
             </form>
+            
         </div>
-        
+        <script>
+            function showLoader() {
+                var count = 0;
+                setInterval(() => {
+                    if (count == 0) {
+                        document.getElementById("singlebutton").innerHTML = '.'
+                    } else if (count == 1) {
+                        document.getElementById("singlebutton").innerHTML = '..'
+                    } else {
+                        document.getElementById("singlebutton").innerHTML = '...'
+                    }
+                    count = ((count + 1) % 3);
+                }, 300);
+            }
+        </script>

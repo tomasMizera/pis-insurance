@@ -61,7 +61,7 @@
       </tr>
       <tr>
         <th scope="row">Total price</th>
-        <td><%= claimData.invoice_total %></td>
+        <td><%= claimData.invoice_total %>€</td>
       </tr>
       <tr>
         <th scope="row">Description</th>
@@ -120,40 +120,111 @@
         Summary
       </p>
 
-      <%= codesStatusText %>
-      <br>
-      <%= priceStatusText %>
+      <p class="h5" style="display: inline">Action codes status: 
+
+      <% if (codesStatus == -1) { %> 
+      <p style="color: red; display: inline" ><%= codesStatusText %></p>
+      <% } else if (codesStatus == 0) { %> 
+      <p style="color: orange; display: inline" ><%= codesStatusText %></p>
+      <% } else { %>
+      <p style="color: green; display: inline" ><%= codesStatusText %></p>
+      <% } %>
+      </p>
+
+      <table class="table">
+        <colgroup>
+          <col class="col-md-5">
+          <col class="col-md-7">
+        </colgroup>
+        <tbody>
+          <tr>
+            <th scope="row">Codes covered by insurance</th>
+            <th scope="row">Codes not covered by insurance</td>
+          </tr>
+          <% let len = (coveredCodes.length > uncoveredCodes.length) ? coveredCodes.length : uncoveredCodes.length %>
+          <% for (let i = 0; i < len; i++) { %>
+          <tr>
+            <td><%= coveredCodes[i] ? coveredCodes[i].code : '' %></td>
+            <td><%= uncoveredCodes[i] ? uncoveredCodes[i].code : '' %></td>
+          </tr>
+          <% } %>
+        </tbody>
+      </table>
+
+      <p class="h5" style="display: inline">Price status:
+      <% if (priceStatus == 1) { %>
+      <p style="color: green; display: inline"><%= priceStatusText %></p>
+      <% } else { %>
+        <p style="color: red; display: inline"><%= priceStatusText %></p>
+        <% } %>
+      </p>
+
+      <table class="table">
+        <colgroup>
+          <col class="col-md-4">
+          <col class="col-md-3">
+          <col class="col-md-5">
+        </colgroup>
+        <tbody>
+          <tr>
+            <th scope="row">Total insurance coverage</th>
+            <th scope="row">Paid so far</th>
+            <th scope="row">Insurance claim price</th>
+          </tr>
+          <tr>
+            <td><%= insuranceData.insurance_type_id.max_cover %>€</td>
+            <td><%= insuranceData.paid_so_far %>€</td>
+            <td><%= claimData.invoice_total %>€</td>
+          </tr>
+        </tbody>
+      </table>
 
       <p class="h4 text-center">
         Decision
       </p>
-      
-
 
       <!-- Form -->
-    <form class="form-horizontal" method="GET">
+    <form class="form-horizontal" method="GET" action="/insuranceClaimStatus" onsubmit="showLoader()">
       <fieldset>
         <input id="prodId" name="claimId" type="hidden" value="<%= claimData.id %>">
-        <div class="custom-control custom-radio custom-control-inline">
-            <input type="radio" id="customRadioInline1" name="customRadioInline1" class="custom-control-input">
-            <label class="custom-control-label" for="customRadioInline1">Accept</label>
+        <div class="form-check form-check-inline">
+            <input class="form-check-input" type="radio" name="decision" id="inlineRadio1" value="accept">
+            <label class="form-check-label" for="inlineRadio1">Accept</label>
           </div>
-          <div class="custom-control custom-radio custom-control-inline">
-            <input type="radio" id="customRadioInline2" name="customRadioInline1" class="custom-control-input">
-            <label class="custom-control-label" for="customRadioInline2">Send to supervisor</label>
+          <div class="form-check form-check-inline">
+            <input class="form-check-input" type="radio" name="decision" id="inlineRadio2" value="send">
+            <label class="form-check-label" for="inlineRadio2">Send to supervisor</label>
           </div>
-          <div class="custom-control custom-radio custom-control-inline">
-            <input type="radio" id="customRadioInline3" name="customRadioInline1" class="custom-control-input">
-            <label class="custom-control-label" for="customRadioInline3">Reject</label>
+          <div class="form-check form-check-inline">
+            <input class="form-check-input" type="radio" name="decision" id="inlineRadio3" value="reject">
+            <label class="form-check-label" for="inlineRadio3">Reject</label>
           </div>
           <!-- Button -->
           <div class="form-group">
               <label class="col-md-4 control-label" for="singlebutton"></label>
               <div class="col-md-4">
-                  <button id="singlebutton" type="submit" class="btn btn-primary">Send</button>
+                  <button id="singlebutton" type="submit" class="btn btn-primary">
+                    Send
+                  </button>
               </div>
+              <p></p>
           </div>
       </fieldset>
   </form>
 </div>
-    
+
+<script>
+    function showLoader() {
+        var count = 0;
+        setInterval(() => {
+            if (count == 0) {
+                document.getElementById("singlebutton").innerHTML = '.'
+            } else if (count == 1) {
+                document.getElementById("singlebutton").innerHTML = '..'
+            } else {
+                document.getElementById("singlebutton").innerHTML = '...'
+            }
+            count = ((count + 1) % 3);
+        }, 300);
+    }
+</script>
