@@ -16,6 +16,7 @@ module.exports = {
       type: 'string',
       required: true,
       description: 'Action code.',
+      unique: true,
       example: 'U123IO'
     },
 
