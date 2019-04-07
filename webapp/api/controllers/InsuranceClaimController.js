@@ -44,7 +44,9 @@ function updateInsuranceClaimDetails(req, res) {
         InsuranceClaim.addActionCodes(claimId, actionCodes)
     ])
     .then((responseData) => {
-        res.redirect(`/finalizeClaim/${claimId}`);
+        setTimeout(() =>{
+            res.redirect(`/finalizeClaim/${claimId}`);
+        }, 1500);
     })
     .catch((err) => {
         res.serverError('Something failed .. try again later, error: ' + err);
