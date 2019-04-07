@@ -32,16 +32,27 @@ function updateInsuranceClaimDetails(req, res) {
     // Parse id of vet
     vet = Number(vet.split(':')[0]);
     
+    // Update entry and redirect user if update was successfull
     Promise.all([
         InsuranceClaim.updateEntry(claimId, 'vet_id', vet),
-        Insurance.areCodesCoveredByInsurance(claimId, actionCodes)
+        InsuranceClaim.addActionCodes(claimId, actionCodes)
     ])
     .then((responseData) => {
-        res.status(200).send(responseData);
+        res.redirect(`/finalizeClaim/${claimId}`);
     })
     .catch((err) => {
-        res.serverError('Something failed .. try again later - ' + err);
+        res.serverError('Something failed .. try again later, error: ' + err);
     });
+}
+
+function getFinalizedClaim(req, res) {
+    Insurance.areCodesCoveredByInsurance(Number(req.param('claimId')), [])
+    .then((ok) => {
+        res.ok();
+    })
+    .catch((err) => {
+        res.serverError(err);
+    })
 }
 
 module.exports = {
@@ -56,10 +67,6 @@ module.exports = {
       InsuranceClaim.find(function(err, claims){
         res.view('pages/claims', {claims: claims});
       });
-
-
-
-
     },
 
     getInsuranceClaim: (req, res) => {
@@ -72,6 +79,10 @@ module.exports = {
 
     updateInsuranceClaim: (req, res) => {
         updateInsuranceClaimDetails(req, res);
+    },
+
+    finalizeInsuranceClaim: (req, res) => {
+        getFinalizedClaim(req, res);
     }
 
     // Just wanted to add dump data to db 

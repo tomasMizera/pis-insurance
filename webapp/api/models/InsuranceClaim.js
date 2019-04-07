@@ -7,7 +7,7 @@
 module.exports = {
 
   getDetailOf: async function(_id) {
-    let entry = await InsuranceClaim.findOne({id: _id});
+    let entry = await InsuranceClaim.findOne({id: _id}).populate('actionCodes');
     if (!entry) {
       throw new Error('no such entry in db');
     }
@@ -25,6 +25,22 @@ module.exports = {
       throw new Error('Update unsuccessfull!');
     }
     return updatedEntry;
+  },
+
+  addActionCodes: async function(_id, _codes) {
+    ActionCode.getValidActionCodes(_codes)
+    .then((vCodes) => {
+      // Filter undefineds
+      vCodes = vCodes.filter(code => code);
+      vCodes = vCodes.map(code => code.id);
+      
+      return InsuranceClaim.addToCollection(_id, 'actionCodes')
+      .members(vCodes);
+    })
+    .then(() => {})
+    .catch((err) => {
+      throw new Error(err);
+    })
   },
 
   attributes: {
