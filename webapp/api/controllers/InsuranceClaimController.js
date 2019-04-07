@@ -54,7 +54,6 @@ function updateInsuranceClaimDetails(req, res) {
 function getFinalizedClaim(req, res) {
     Insurance.isClaimCoveredByInsurance(Number(req.param('claimId')), [])
     .then((data) => {
-        console.log(data);
         setTimeout(() => {
             res.view('pages/insuranceClaimAfterCheck', data);
         }, 3000);
