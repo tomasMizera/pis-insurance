@@ -7,7 +7,12 @@
 module.exports = {
 
   getDetailOf: async function(_id) {
-    let entry = await InsuranceClaim.findOne({id: _id}).populate('actionCodes');
+    let entry = await InsuranceClaim.findOne({id: _id})
+      .populate('actionCodes')
+      .populate('vet_id')
+      .populate('owner_id')
+      .populate('state_id');
+
     if (!entry) {
       throw new Error('no such entry in db');
     }

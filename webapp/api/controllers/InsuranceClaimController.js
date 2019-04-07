@@ -12,6 +12,13 @@ function getInsuranceClaimDetails(req, res) {
             claimData: datas[0],
             vets: datas[1]
         }
+        return Promise.all([Insurance.getActionCodes(datas[0].insurance_id), retObj])
+    })
+    .then((data) => {
+        
+        retObj = data[1];
+        retObj.insuranceCodes = data[0];
+        console.log(retObj)
         res.view('pages/insuranceClaimForEmployee', retObj);
     })
     .catch((err) => {
@@ -46,9 +53,10 @@ function updateInsuranceClaimDetails(req, res) {
 }
 
 function getFinalizedClaim(req, res) {
-    Insurance.areCodesCoveredByInsurance(Number(req.param('claimId')), [])
-    .then((ok) => {
-        res.ok();
+    Insurance.isClaimCoveredByInsurance(Number(req.param('claimId')), [])
+    .then((data) => {
+        console.log(data);
+        res.view('pages/insuranceClaimAfterCheck', data);
     })
     .catch((err) => {
         res.serverError(err);
