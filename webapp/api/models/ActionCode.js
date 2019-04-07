@@ -16,6 +16,7 @@ module.exports = {
       type: 'string',
       required: true,
       description: 'Action code.',
+      unique: true,
       example: 'U123IO'
     },
 
@@ -34,9 +35,14 @@ module.exports = {
     //  ╔═╗╔═╗╔═╗╔═╗╔═╗╦╔═╗╔╦╗╦╔═╗╔╗╔╔═╗
     //  ╠═╣╚═╗╚═╗║ ║║  ║╠═╣ ║ ║║ ║║║║╚═╗
     //  ╩ ╩╚═╝╚═╝╚═╝╚═╝╩╩ ╩ ╩ ╩╚═╝╝╚╝╚═╝
-    insurace_claims: {
-      collection: 'insuranceclaim',
+    insuraces: {
+      collection: 'insurance',
       via: 'action_codes'
+    },
+
+    insuranceClaims: {
+      collection: 'insuranceclaim',
+      via: 'actionCodes'
     }
   },
 
