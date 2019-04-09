@@ -1,4 +1,4 @@
-parasails.registerPage('welcome', {
+parasails.registerPage('submitted', {
   //  ╦╔╗╔╦╔╦╗╦╔═╗╦    ╔═╗╔╦╗╔═╗╔╦╗╔═╗
   //  ║║║║║ ║ ║╠═╣║    ╚═╗ ║ ╠═╣ ║ ║╣
   //  ╩╝╚╝╩ ╩ ╩╩ ╩╩═╝  ╚═╝ ╩ ╩ ╩ ╩ ╚═╝
@@ -41,7 +41,7 @@ parasails.registerPage('welcome', {
   //  ╚╗╔╝║╠╦╝ ║ ║ ║╠═╣║    ╠═╝╠═╣║ ╦║╣ ╚═╗
   //   ╚╝ ╩╩╚═ ╩ ╚═╝╩ ╩╩═╝  ╩  ╩ ╩╚═╝╚═╝╚═╝
   // Configure deep-linking (aka client-side routing)
-  virtualPagesRegExp: /^\/welcome\/?([^\/]+)?\/?/,
+  virtualPagesRegExp: /^\/submitted\/?([^\/]+)?\/?/,
   afterNavigate: async function(virtualPageSlug){
     // `virtualPageSlug` is determined by the regular expression above, which
     // corresponds with `:unused?` in the server-side route for this page.
@@ -60,7 +60,7 @@ parasails.registerPage('welcome', {
   methods: {
 
     clickOpenExampleModalButton: async function() {
-      this.goto('/welcome/hello');
+      this.goto('/submitted/hello');
       // Or, without deep links, instead do:
       // ```
       // this.modal = 'example';
@@ -68,7 +68,7 @@ parasails.registerPage('welcome', {
     },
 
     closeExampleModal: async function() {
-      this.goto('/welcome');
+      this.goto('/submitted');
       // Or, without deep links, instead do:
       // ```
       // this.modal = '';
@@ -76,7 +76,7 @@ parasails.registerPage('welcome', {
     },
 
     closeSubmittedModal: async function() {
-      this.goto('/welcome');
+      this.goto('/submitted');
     },
 
     submittedForm: async function() {
@@ -85,10 +85,9 @@ parasails.registerPage('welcome', {
     },
 
     saveFiles(event) {
-      console.log(event.target.files[0]);
-      console.log(event.target.files[0].filename);
-      this.formData['vet_doc'] = event.target.files[0];
-      this.formData['file2'] = '123';
+      console.log(event);
+      this.formData.filename = event.target.files;
+      console.log(this.formData);
     },
   }
 });

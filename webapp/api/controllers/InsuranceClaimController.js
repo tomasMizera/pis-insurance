@@ -1,6 +1,17 @@
 async function addClaim(req, res) {
   sails.log('Adding new insurance claim.');
   console.log(req.body);
+
+  console.log(req.file('vet_doc'));
+  req.file('vet_doc').upload(function (err, uploadedFiles) {
+    if (err) {
+      console.log('file upload went wrong!');
+      console.log(err);
+    }
+
+    console.log('Upload successful', uploadedFiles);
+  });
+
   // description: getValue('description'),
   //   hospital: getValue('hospital'),
   //   docName: getValue('docName'),
@@ -29,25 +40,25 @@ async function addClaim(req, res) {
     return yyyy+'-'+mm+'-'+dd;
   }
 
-  my_insurance_ids = await Insurance.find({ owner_id: req.me.id - 1});
-  first_in_id = my_insurance_ids[0].id;
-
-  console.log(req.file('vetDocButton'));
-
-  var createdInsurance = await InsuranceClaim.create({
-    invoice_total: req.body.invoice,
-    description: req.body.description,
-    hospital_clinic: req.body.hospital,
-    treatment_from: req.body.dateFrom,
-    treatment_to: req.body.dateTo,
-
-    date: getCurrentDate(),
-    owner_id: req.me.id,
-    insurance_id: first_in_id,
-
-  }).fetch();
-
-  sails.log('New id is:', createdInsurance.id);
+  // my_insurance_ids = await Insurance.find({ owner_id: req.me.id - 1});
+  // first_in_id = my_insurance_ids[0].id;
+  //
+  // console.log(req.file('vetDocButton'));
+  //
+  // var createdInsurance = await InsuranceClaim.create({
+  //   invoice_total: req.body.invoice,
+  //   description: req.body.description,
+  //   hospital_clinic: req.body.hospital,
+  //   treatment_from: req.body.dateFrom,
+  //   treatment_to: req.body.dateTo,
+  //
+  //   date: getCurrentDate(),
+  //   owner_id: req.me.id,
+  //   insurance_id: first_in_id,
+  //
+  // }).fetch();
+  //
+  // sails.log('New id is:', createdInsurance.id);
   sails.log('Insurance claim successfully added.')
 }
 

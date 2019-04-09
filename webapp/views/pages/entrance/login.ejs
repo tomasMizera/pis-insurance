@@ -3,6 +3,7 @@
     <h1 class="text-center">Sign in to your account</h1>
     <div class="login-form-container">
       <hr/>
+
       <ajax-form action="login" :syncing.sync="syncing" :cloud-error.sync="cloudError" :form-data="formData" :form-rules="formRules" :form-errors.sync="formErrors" @submitted="submittedForm()">
         <div class="form-group">
           <input type="email" class="form-control" placeholder="Email address" :class="[formErrors.emailAddress ? 'is-invalid' : '']" v-model.trim="formData.emailAddress" autocomplete="email" focus-first>
@@ -22,6 +23,7 @@
           <ajax-button :syncing="syncing" class="btn-dark btn-lg btn-block">Sign in</ajax-button>
         </div>
       </ajax-form>
+
       <p class="text-center"><a href="/password/forgot">Forgot your password?</a></p>
     </div>
   </div>

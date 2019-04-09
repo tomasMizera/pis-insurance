@@ -20,187 +20,115 @@
       <hr/>
       <button type="button" class="modal-close-button" data-dismiss="modal" aria-label="Close"></button>
     </div>
+
     <div class="modal-body">
+      <ajax-form action="addInsuranceClaim" :syncing.sync="syncing" :cloud-error.sync="cloudError" :form-data="formData" :form-rules="formRules" :form-errors.sync="formErrors" @submitted="submittedForm()">
+        <div class="form-group">
+          <textarea class="form-control" name="description" rows="4" cols="30" placeholder="Description of the insurance event..." v-model.trim="formData.description"></textarea>
+        </div>
 
-      <form class="form-horizontal">
+        <div class="form-group">
+          <input type="text" placeholder="Hospital/Clinic" class="form-control" v-model.trim="formData.hospital"/>
+        </div>
 
-          <!-- Multiple Checkboxes -->
-          <div class="form-group">
-            <label class=" control-label" for="reasonsForVisit">Reasons for visit</label>
-            <div class="">
-              <div class="checkbox">
-                <label for="reasonsForVisit-0">
-                  <input type="checkbox" name="reasonsForVisit" id="reasonsForVisit-0" value="1">
-                  Wellness services
-                </label>
-              </div>
-              <div class="checkbox">
-                <label for="reasonsForVisit-1">
-                  <input type="checkbox" name="reasonsForVisit" id="reasonsForVisit-1" value="2">
-                  Injury
-                </label>
-              </div>
-              <div class="checkbox">
-                <label for="reasonsForVisit-2">
-                  <input type="checkbox" name="reasonsForVisit" id="reasonsForVisit-2" value="3">
-                  Illness
-                </label>
-              </div>
-            </div>
-          </div>
+        <div class="form-group">
+          <input type="text" placeholder="Veterinary name" class="form-control" v-model.trim="formData.vetName"/>
+        </div>
 
-          <!-- Textarea -->
-          <div class="form-group">
-            <label class=" control-label" for="description">Description</label>
-            <div class="">
-              <textarea class="form-control" id="description" name="description">On the 25th of February my pet ...</textarea>
-            </div>
-          </div>
+        <div class="form-group">
+          <input type="date" placeholder="Treatment started" class="form-control" v-model.trim="formData.startDate"/>
+        </div>
 
-          <!-- Search input-->
-          <div class="form-group">
-            <label class=" control-label" for="hospital">Hospital / clinic</label>
-            <div class="">
-              <input id="hospital" name="hospital" type="search" placeholder="Name of the hospital" class="form-control input-md" required="">
+        <div class="form-group">
+          <input type="date" placeholder="Treatment ended" class="form-control" v-model.trim="formData.endDate"/>
+        </div>
 
-            </div>
-          </div>
+        <div class="form-group">
+          <input type="file" ref="vet_file" placeholder="Report" class="form-control-file" name="report" v-on:change=saveFiles($event) />
+        </div>
 
-          <!-- Text input-->
-          <div class="form-group">
-            <label class=" control-label" for="docName">Name of the doctor</label>
-            <div class="">
-              <input id="docName" name="docName" type="text" placeholder="Peter Maricovk" class="form-control input-md" required="">
-              <span class="help-block">Only type name, not degree. If more doctors were involved, split names with comma</span>
-            </div>
-          </div>
+        <div class="form-group">
+          <input class="form-control" v-model="formData.invoiceTotal" type="number">
+<!--          <input type="number" placeholder="Invoice Total" class="form-control" v-model="formData.invoiceTotal"/>-->
+        </div>
 
-          <!-- Appended Input-->
-          <div class="form-group">
-            <label class=" control-label" for="dateFrom">Treatment started</label>
-            <div class="">
-              <div class="input-group">
-                <input id="dateFrom" name="dateFrom" class="form-control" placeholder="18-02-2019" type="text" required="">
-                <span class="input-group-addon">select date</span>
-              </div>
+        <div class="form-group">
+          <label class=" control-label" for="radios">Money recipient</label>
 
-            </div>
-          </div>
-          <!-- Appended Input-->
-          <div class="form-group">
-            <label class=" control-label" for="dateTo">Treatment ended</label>
-            <div class="">
-              <div class="input-group">
-                <input id="dateTo" name="dateTo" class="form-control" placeholder="18-03-2019" type="text">
-                <span class="input-group-addon">select date</span>
-              </div>
+          <label class="radio-inline" for="radios-0">
+            <input type="radio" name="radios" id="radios-0" value="0" checked="checked" v-model="formData.payToVet">
+            Pay to me
+          </label>
 
-            </div>
-          </div>
-          <!-- File Button -->
-          <div class="form-group">
-            <label class=" control-label" for="descFileButton">Description of insurance event</label>
-            <div class="">
-              <input id="descFileButton" name="descFileButton" class="input-file" type="file">
-            </div>
-          </div>
+          <label class="radio-inline" for="radios-1">
+            <input type="radio" name="radios" id="radios-1" value="1" v-model="formData.payToVet">
+            Pay to vet
+          </label>
+        </div>
 
-          <!-- File Button -->
-          <div class="form-group">
-            <label class=" control-label" for="vetDocButton">Vet report</label>
-            <div class="">
-              <input id="vetDocButton" name="vetDocButton" class="input-file" type="file">
-            </div>
-          </div>
-
-          <!-- Text input-->
-          <div class="form-group">
-            <label class=" control-label" for="invoice">Total cost</label>
-            <div class="">
-              <input id="invoice" name="invoice" type="text" placeholder="--€" class="form-control input-md" required="">
-              <span class="help-block">In euros, only type number, not euro sign</span>
-            </div>
-          </div>
-
-          <!-- Multiple Radios (inline) -->
-          <div class="form-group">
-            <label class=" control-label" for="radios">Money recipient</label>
-            <div class="">
-              <label class="radio-inline" for="radios-0">
-                <input type="radio" name="radios" id="radios-0" value="1" checked="checked">
-                Pay to me
-              </label>
-              <label class="radio-inline" for="radios-1">
-                <input type="radio" name="radios" id="radios-1" value="2">
-                Pay to vet
-              </label>
-            </div>
-          </div>
-
-      </form>
-    </div>
-
-
-    <div class="modal-footer flex-row-reverse justify-content-between">
-      <button onclick="send()" class="btn btn-success">Submit</button>
-      <button id="closeButton" type="button" data-dismiss="modal" class="btn btn-alert">Close</button>
+        <div class="modal-footer flex-row-reverse justify-content-between">
+          <ajax-button :syncing="syncing" class="btn btn-success">Submit</ajax-button>
+          <button id="closeButton" type="button" data-dismiss="modal" class="btn btn-danger">Close</button>
+        </div>
+      </ajax-form>
     </div>
   </modal>
 </div>
 
-<script>
-  function getValue(element) {
-    return document.getElementById(element).value;
-  }
+<!--<script>-->
+<!--  function getValue(element) {-->
+<!--    return document.getElementById(element).value;-->
+<!--  }-->
 
-  function getCheckedId() {
-    if (document.getElementById('reasonsForVisit-0').checked)
-      return 0;
+<!--  function getCheckedId() {-->
+<!--    if (document.getElementById('reasonsForVisit-0').checked)-->
+<!--      return 0;-->
 
-    if (document.getElementById('reasonsForVisit-1').checked)
-      return 1;
+<!--    if (document.getElementById('reasonsForVisit-1').checked)-->
+<!--      return 1;-->
 
-    if (document.getElementById('reasonsForVisit-2').checked)
-      return 2;
-  }
+<!--    if (document.getElementById('reasonsForVisit-2').checked)-->
+<!--      return 2;-->
+<!--  }-->
 
-  function send() {
-    console.log('sending');
+<!--  function send() {-->
+<!--    console.log('sending');-->
 
-    data = {
-      description: getValue('description'),
-      hospital: getValue('hospital'),
-      docName: getValue('docName'),
-      invoice: getValue('invoice'),
-      vetDocButton: document.getElementById('vetDocButton').files[0].name,
-      descFileButton: getValue('descFileButton'),
-      dateFrom: getValue('dateFrom'),
-      dateTo: getValue('dateTo'),
-  }
+<!--    data = {-->
+<!--      description: getValue('description'),-->
+<!--      hospital: getValue('hospital'),-->
+<!--      docName: getValue('docName'),-->
+<!--      invoice: getValue('invoice'),-->
+<!--      vetDocButton: document.getElementById('vetDocButton').files[0].name,-->
+<!--      descFileButton: getValue('descFileButton'),-->
+<!--      dateFrom: getValue('dateFrom'),-->
+<!--      dateTo: getValue('dateTo'),-->
+<!--  }-->
 
-    io.socket.post('/insuranceClaim', data, function (resData, jwRes) {
-      if (jwRes.statusCode === 200) {
-        document.getElementById('closeButton').click();
-        window.location.replace('/welcome/submited');
-      } else {
-        alert("Wrong input!");
-      }
-    });
+<!--    io.socket.post('/insuranceClaim', data, function (resData, jwRes) {-->
+<!--      if (jwRes.statusCode === 200) {-->
+<!--        document.getElementById('closeButton').click();-->
+<!--        window.location.replace('/welcome/submited');-->
+<!--      } else {-->
+<!--        alert("Wrong input!");-->
+<!--      }-->
+<!--    });-->
 
-    // io.socket.request({
-    //   method: 'post',
-    //   url: '/insuranceClaim',
-    //   headers: {
-    //     'Content-Type': 'multipart/form-data',
-    //   }
-    // }, function (resData, jwres) {
-    //   if (jwres.statusCode === 200) {
-    //     document.getElementById('closeButton').click();
-    //     window.location.replace('/welcome/submited');
-    //   } else {
-    //     alert("Wrong input!");
-    //   }
-    // });
-  }
-</script>
+<!--    // io.socket.request({-->
+<!--    //   method: 'post',-->
+<!--    //   url: '/insuranceClaim',-->
+<!--    //   headers: {-->
+<!--    //     'Content-Type': 'multipart/form-data',-->
+<!--    //   }-->
+<!--    // }, function (resData, jwres) {-->
+<!--    //   if (jwres.statusCode === 200) {-->
+<!--    //     document.getElementById('closeButton').click();-->
+<!--    //     window.location.replace('/welcome/submited');-->
+<!--    //   } else {-->
+<!--    //     alert("Wrong input!");-->
+<!--    //   }-->
+<!--    // });-->
+<!--  }-->
+<!--</script>-->
+
 <%- /* Expose locals as `window.SAILS_LOCALS` :: */ exposeLocalsToBrowser() %>
