@@ -67,7 +67,7 @@ module.exports.routes = {
 
 
   'GET /insuranceClaims':                               { controller: 'InsuranceClaimController', action: 'getInsuranceClaims'},
-  'PUT /insuranceClaimStatus':                          { controller: 'InsuranceClaimController', action: 'setInsuranceClaimStatus'},
+  'GET /insuranceClaimStatus':                          { controller: 'InsuranceClaimController', action: 'setInsuranceClaimStatus'},
   'GET /insuranceClaim/:claimId':                       { controller: 'InsuranceClaimController', action: 'getInsuranceClaim'},
 
 
