@@ -31,7 +31,6 @@ module.exports = {
 
     first_name: {
       type: 'string',
-      required: true,
       description: 'Full representation of the user\'s first name.',
       maxLength: 120,
       example: 'Mary'
@@ -39,7 +38,6 @@ module.exports = {
 
     last_name: {
       type: 'string',
-      required: true,
       description: 'Full representation of the user\'s last name.',
       maxLength: 120,
       example: 'Sue van der McHenst'
@@ -48,14 +46,12 @@ module.exports = {
     date_of_birth: {
       type: 'string',
       // columnType: 'date',
-      required: true,
       description: 'Date of birth.'
     },
 
     client_since: {
       type: 'string',
       // columnType: 'date',
-      required: true,
       description: 'A JS timestamp (epoch ms) representing the moment at which this user most recently interacted with the backend while logged in (or 0 if they have not interacted with the backend at all yet).'
     },
 
@@ -98,7 +94,6 @@ email status until they click the link in the confirmation email.`
 
     fullName: {
       type: 'string',
-      required: true,
       description: 'Full representation of the user\'s name.',
       maxLength: 120,
       example: 'Mary Sue van der McHenst'

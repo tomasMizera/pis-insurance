@@ -41,7 +41,8 @@ async function addClaim(req, res) {
   }
 
   my_insurance_ids = await Insurance.find({ owner_id: req.me.id});
-  first_in_id = my_insurance_ids[0].id;
+//   first_in_id = my_insurance_ids[0].id;
+first_in_id = 1;
   //
   // console.log(req.file('vetDocButton'));
   //
