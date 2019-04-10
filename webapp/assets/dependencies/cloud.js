@@ -126,11 +126,11 @@
    * ### Basic Usage
    *
    * ```
-   * var user = await Cloud.findOneUser(3);
+   * var user = await Cloud.findOneOwner(3);
    * ```
    *
    * ```
-   * var user = await Cloud.findOneUser.with({ id: 3 });
+   * var user = await Cloud.findOneOwner.with({ id: 3 });
    * ```
    *
    * ```
@@ -153,7 +153,7 @@
    * Cloud.signup.with({...})
    * .switch({
    *   error: function (err) { ... },
-   *   usernameAlreadyInUse: function (recommendedAlternativeUsernames) { ... },
+   *   usernameAlreadyInUse: function (recommendedAlternativeOwnernames) { ... },
    *   emailAddressAlreadyInUse: function () { ... },
    *   success: function () { ... }
    * });

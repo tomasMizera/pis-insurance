@@ -165,14 +165,14 @@ will be disabled and/or hidden in the UI.
             if (!req.session.userId) { return next(); }
 
             // Otherwise, look up the logged-in user.
-            var loggedInUser = await User.findOne({
+            var loggedInOwner = await Owner.findOne({
               id: req.session.userId
             });
 
             // If the logged-in user has gone missing, log a warning,
             // wipe the user id from the requesting user agent's session,
             // and then send the "unauthorized" response.
-            if (!loggedInUser) {
+            if (!loggedInOwner) {
               sails.log.warn('Somehow, the user record for the logged-in user (`'+req.session.userId+'`) has gone missing....');
               delete req.session.userId;
               return res.unauthorized();
@@ -180,8 +180,8 @@ will be disabled and/or hidden in the UI.
 
             // Add additional information for convenience when building top-level navigation.
             // (i.e. whether to display "Dashboard", "My Account", etc.)
-            if (!loggedInUser.password || loggedInUser.emailStatus === 'unconfirmed') {
-              loggedInUser.dontDisplayAccountLinkInNav = true;
+            if (!loggedInOwner.password || loggedInOwner.emailStatus === 'unconfirmed') {
+              loggedInOwner.dontDisplayAccountLinkInNav = true;
             }
 
             // Expose the user record as an extra property on the request object (`req.me`).
@@ -189,7 +189,7 @@ will be disabled and/or hidden in the UI.
             if (req.me !== undefined) {
               throw new Error('Cannot attach logged-in user as `req.me` because this property already exists!  (Is it being attached somewhere else?)');
             }
-            req.me = loggedInUser;
+            req.me = loggedInOwner;
 
             // If our "lastSeenAt" attribute for this user is at least a few seconds old, then set it
             // to the current timestamp.
@@ -197,15 +197,15 @@ will be disabled and/or hidden in the UI.
             // (Note: As an optimization, this is run behind the scenes to avoid adding needless latency.)
             var MS_TO_BUFFER = 60*1000;
             var now = Date.now();
-            if (loggedInUser.lastSeenAt < now - MS_TO_BUFFER) {
-              User.updateOne({id: loggedInUser.id})
+            if (loggedInOwner.lastSeenAt < now - MS_TO_BUFFER) {
+              Owner.updateOne({id: loggedInOwner.id})
               .set({ lastSeenAt: now })
               .exec((err)=>{
                 if (err) {
-                  sails.log.error('Background task failed: Could not update user (`'+loggedInUser.id+'`) with a new `lastSeenAt` timestamp.  Error details: '+err.stack);
+                  sails.log.error('Background task failed: Could not update user (`'+loggedInOwner.id+'`) with a new `lastSeenAt` timestamp.  Error details: '+err.stack);
                   return;
                 }//•
-                sails.log.verbose('Updated the `lastSeenAt` timestamp for user `'+loggedInUser.id+'`.');
+                sails.log.verbose('Updated the `lastSeenAt` timestamp for user `'+loggedInOwner.id+'`.');
                 // Nothing else to do here.
               });//_∏_  (Meanwhile...)
             }//ﬁ
@@ -220,21 +220,21 @@ will be disabled and/or hidden in the UI.
               }
 
               // Exclude any fields corresponding with attributes that have `protect: true`.
-              var sanitizedUser = _.extend({}, loggedInUser);
-              for (let attrName in User.attributes) {
-                if (User.attributes[attrName].protect) {
-                  delete sanitizedUser[attrName];
+              var sanitizedOwner = _.extend({}, loggedInOwner);
+              for (let attrName in Owner.attributes) {
+                if (Owner.attributes[attrName].protect) {
+                  delete sanitizedOwner[attrName];
                 }
               }//∞
 
               // If there is still a "password" in sanitized user data, then delete it just to be safe.
               // (But also log a warning so this isn't hopelessly confusing.)
-              if (sanitizedUser.password) {
-                sails.log.warn('The logged in user record has a `password` property, but it was still there after pruning off all properties that match `protect: true` attributes in the User model.  So, just to be safe, removing the `password` property anyway...');
-                delete sanitizedUser.password;
+              if (sanitizedOwner.password) {
+                sails.log.warn('The logged in user record has a `password` property, but it was still there after pruning off all properties that match `protect: true` attributes in the Owner model.  So, just to be safe, removing the `password` property anyway...');
+                delete sanitizedOwner.password;
               }//ﬁ
 
-              res.locals.me = sanitizedUser;
+              res.locals.me = sanitizedOwner;
 
               // Include information on the locals as to whether billing features
               // are enabled for this app, and whether email verification is required.

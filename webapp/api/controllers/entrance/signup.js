@@ -72,7 +72,7 @@ the account verification message.)`,
 
     // Build up data for the new user record and save it to the database.
     // (Also use `fetch` to retrieve the new ID so that we can use it below.)
-    var newUserRecord = await User.create(_.extend({
+    var newOwnerRecord = await Owner.create(_.extend({
       emailAddress: newEmailAddress,
       password: await sails.helpers.passwords.hashPassword(inputs.password),
       fullName: inputs.fullName,
@@ -92,14 +92,14 @@ the account verification message.)`,
       let stripeCustomerId = await sails.helpers.stripe.saveBillingInfo.with({
         emailAddress: newEmailAddress
       }).timeout(5000).retry();
-      await User.updateOne(newUserRecord.id)
+      await Owner.updateOne(newOwnerRecord.id)
       .set({
         stripeCustomerId
       });
     }
 
     // Store the user's new id in their session.
-    this.req.session.userId = newUserRecord.id;
+    this.req.session.userId = newOwnerRecord.id;
 
     if (sails.config.custom.verifyEmailAddresses) {
       // Send "confirm account" email
@@ -109,7 +109,7 @@ the account verification message.)`,
         template: 'email-verify-account',
         templateData: {
           fullName: inputs.fullName,
-          token: newUserRecord.emailProofToken
+          token: newOwnerRecord.emailProofToken
         }
       });
     } else {

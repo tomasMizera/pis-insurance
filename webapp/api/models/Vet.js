@@ -1,5 +1,5 @@
 /**
- * User.js
+ * Owner.js
  *
  * A user who can log in to this application.
  */

@@ -42,7 +42,7 @@
     "_": true,
 
     // Models:
-    "User": true
+    "Owner": true
     
     // …and any others.
     // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -

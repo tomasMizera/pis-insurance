@@ -1607,7 +1607,7 @@ var supportsPushState = inBrowser && (function () {
   return window.history && 'pushState' in window.history
 })();
 
-// use User Timing api (if present) for more accurate key precision
+// use Owner Timing api (if present) for more accurate key precision
 var Time = inBrowser && window.performance && window.performance.now
   ? window.performance
   : Date;
