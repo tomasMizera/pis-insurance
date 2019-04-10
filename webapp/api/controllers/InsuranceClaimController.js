@@ -90,7 +90,8 @@ module.exports = {
 
     getInsuranceClaims: (req, res) => {
 
-      InsuranceClaim.find(function(err, claims){
+        // list only pending claims
+      InsuranceClaim.find({state_id: 1},function(err, claims){
         res.view('pages/claims', {claims: claims});
       });
     },
