@@ -1,0 +1,230 @@
+<div class="mx-auto" style="width: 70%;">
+  <h1 class="display-2 text-center">
+    Insurance claim #<%= claimData.id %>
+  </h1>
+  
+  
+  <p class="h4 text-center">
+    Owner details
+  </p>
+  
+  <table class="table">
+    <colgroup>
+      <col class="col-md-3">
+      <col class="col-md-8">
+    </colgroup>
+    <tbody>
+      <tr>
+        <th scope="row">Owner</th>
+        <td><%= claimData.owner_id.first_name %> <%= claimData.owner_id.last_name %></td>
+      </tr>
+      <tr>
+        <th scope="row">Email</th>
+        <td><%= claimData.owner_id.emailAddress %></td>
+      </tr>
+      <tr>
+        <th scope="row">Date of birth</th>
+        <td><%= claimData.owner_id.date_of_birth %></td>
+      </tr>
+      <tr>
+        <th scope="row">Client since</th>
+        <td><%= claimData.owner_id.client_since %></td>
+      </tr>
+    </tbody>
+  </table>
+  
+  <p class="h4 text-center">
+    Insurance claim details
+  </p>
+  
+  <table class="table">
+    <colgroup>
+      <col class="col-md-3">
+      <col class="col-md-8">
+    </colgroup>
+    <tbody>
+      <tr>
+        <th scope="row">Date</th>
+        <td><%= claimData.date %></td>
+      </tr>
+      <tr>
+        <th scope="row">Treatment from</th>
+        <td><%= claimData.treatment_from %></td>
+      </tr>
+      <tr>
+        <th scope="row">Treatment to</th>
+        <td><%= claimData.treatment_to %></td>
+      </tr>
+      <tr>
+        <th scope="row">Clinic</th>
+        <td><%= claimData.hospital_clinic %></td>
+      </tr>
+      <tr>
+        <th scope="row">Total price</th>
+        <td><%= claimData.invoice_total %>€</td>
+      </tr>
+      <tr>
+        <th scope="row">Description</th>
+        <td><%= claimData.description %></td>
+      </tr>
+      <tr>
+        <th scope="row">Status</th>
+        <td><%= claimData.state_id.state %></td>
+      </tr>
+    </tbody>
+  </table>
+  
+  <p class="h4 text-center">
+    Vet details
+  </p>
+  
+  <table class="table">
+    <colgroup>
+      <col class="col-md-3">
+      <col class="col-md-8">
+    </colgroup>
+    <tbody>
+      <tr>
+        <th scope="row">Vet</th>
+        <td><%= claimData.vet_id.first_name %> <%= claimData.vet_id.last_name %></td>
+      </tr>
+      <tr>
+        <th scope="row">Email</th>
+        <td><%= claimData.vet_id.emailAddress %></td>
+      </tr>
+      <tr>
+        <th scope="row">Address</th>
+        <td><%= claimData.vet_id.address %></td>
+      </tr>
+      <tr>
+        <th scope="row">Phone</th>
+        <td><%= claimData.vet_id.phone_number %></td>
+      </tr>
+      <% if (claimData.vet_id.bank_account != '') { %>
+        <tr>
+          <th scope="row">Bank account</th>
+          <td><%= claimData.vet_id.bank_account %></td>
+        </tr>
+        <% } else {%>
+          <tr>
+            <th scope="row">Bank account</th>
+            <td>Not provided!</td>
+          </tr>
+          <% } %>
+        </tbody>
+      </table>
+      
+      <button type="button" class="btn btn-outline-secondary">Download Vet report</button>
+      
+      <p class="h4 text-center">
+        Summary
+      </p>
+
+      <p class="h5" style="display: inline">Action codes status: 
+
+      <% if (codesStatus == -1) { %> 
+      <p style="color: red; display: inline" ><%= codesStatusText %></p>
+      <% } else if (codesStatus == 0) { %> 
+      <p style="color: orange; display: inline" ><%= codesStatusText %></p>
+      <% } else { %>
+      <p style="color: green; display: inline" ><%= codesStatusText %></p>
+      <% } %>
+      </p>
+
+      <table class="table">
+        <colgroup>
+          <col class="col-md-5">
+          <col class="col-md-7">
+        </colgroup>
+        <tbody>
+          <tr>
+            <th scope="row">Codes covered by insurance</th>
+            <th scope="row">Codes not covered by insurance</td>
+          </tr>
+          <% let len = (coveredCodes.length > uncoveredCodes.length) ? coveredCodes.length : uncoveredCodes.length %>
+          <% for (let i = 0; i < len; i++) { %>
+          <tr>
+            <td><%= coveredCodes[i] ? coveredCodes[i].code : '' %></td>
+            <td><%= uncoveredCodes[i] ? uncoveredCodes[i].code : '' %></td>
+          </tr>
+          <% } %>
+        </tbody>
+      </table>
+
+      <p class="h5" style="display: inline">Price status:
+      <% if (priceStatus == 1) { %>
+      <p style="color: green; display: inline"><%= priceStatusText %></p>
+      <% } else { %>
+        <p style="color: red; display: inline"><%= priceStatusText %></p>
+        <% } %>
+      </p>
+
+      <table class="table">
+        <colgroup>
+          <col class="col-md-4">
+          <col class="col-md-3">
+          <col class="col-md-5">
+        </colgroup>
+        <tbody>
+          <tr>
+            <th scope="row">Total insurance coverage</th>
+            <th scope="row">Paid so far</th>
+            <th scope="row">Insurance claim price</th>
+          </tr>
+          <tr>
+            <td><%= insuranceData.insurance_type_id.max_cover %>€</td>
+            <td><%= insuranceData.paid_so_far %>€</td>
+            <td><%= claimData.invoice_total %>€</td>
+          </tr>
+        </tbody>
+      </table>
+
+      <p class="h4 text-center">
+        Decision
+      </p>
+
+      <!-- Form -->
+    <form class="form-horizontal" method="GET" action="/insuranceClaimStatus" onsubmit="showLoader()">
+      <fieldset>
+        <input id="prodId" name="claimId" type="hidden" value="<%= claimData.id %>">
+        <div class="form-check form-check-inline">
+            <input class="form-check-input" type="radio" name="decision" id="inlineRadio1" value="accept">
+            <label class="form-check-label" for="inlineRadio1">Accept</label>
+          </div>
+          <div class="form-check form-check-inline">
+            <input class="form-check-input" type="radio" name="decision" id="inlineRadio2" value="send">
+            <label class="form-check-label" for="inlineRadio2">Send to supervisor</label>
+          </div>
+          <div class="form-check form-check-inline">
+            <input class="form-check-input" type="radio" name="decision" id="inlineRadio3" value="reject">
+            <label class="form-check-label" for="inlineRadio3">Reject</label>
+          </div>
+          <!-- Button -->
+          <div class="form-group">
+              <label class="col-md-4 control-label" for="singlebutton"></label>
+              <div class="col-md-4">
+                  <button id="singlebutton" type="submit" class="btn btn-primary">
+                    Send
+                  </button>
+              </div>
+              <p></p>
+          </div>
+      </fieldset>
+  </form>
+</div>
+
+<script>
+    function showLoader() {
+        var count = 0;
+        setInterval(() => {
+            if (count == 0) {
+                document.getElementById("singlebutton").innerHTML = '.'
+            } else if (count == 1) {
+                document.getElementById("singlebutton").innerHTML = '..'
+            } else {
+                document.getElementById("singlebutton").innerHTML = '...'
+            }
+            count = ((count + 1) % 3);
+        }, 300);
+    }
+</script>

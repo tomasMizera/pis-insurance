@@ -1,0 +1,147 @@
+<div class="mx-auto" style="width: 70%;">
+    <h1 class="display-2 text-center">
+        Insurance claim #<%= claimData.id %>
+    </h1>
+    
+    
+    <p class="h4 text-center">
+        Owner details
+    </p>
+    
+    <table class="table">
+        <colgroup>
+            <col class="col-md-3">
+            <col class="col-md-8">
+        </colgroup>
+        <tbody>
+            <tr>
+                <th scope="row">Owner</th>
+                <td><%= claimData.owner_id.first_name %> <%= claimData.owner_id.last_name %></td>
+            </tr>
+            <tr>
+                <th scope="row">Email</th>
+                <td><%= claimData.owner_id.emailAddress %></td>
+            </tr>
+            <tr>
+                <th scope="row">Date of birth</th>
+                <td><%= claimData.owner_id.date_of_birth %></td>
+            </tr>
+            <tr>
+                <th scope="row">Client since</th>
+                <td><%= claimData.owner_id.client_since %></td>
+            </tr>
+        </tbody>
+    </table>
+    
+    <p class="h4 text-center">
+        Insurance claim details
+    </p>
+    
+    <table class="table">
+        <colgroup>
+            <col class="col-md-3">
+            <col class="col-md-8">
+        </colgroup>
+        <tbody>
+            <tr>
+                <th scope="row">Date</th>
+                <td><%= claimData.date %></td>
+            </tr>
+            <tr>
+                <th scope="row">Treatment from</th>
+                <td><%= claimData.treatment_from %></td>
+            </tr>
+            <tr>
+                <th scope="row">Treatment to</th>
+                <td><%= claimData.treatment_to %></td>
+            </tr>
+            <tr>
+                <th scope="row">Clinic</th>
+                <td><%= claimData.hospital_clinic %></td>
+            </tr>
+            <tr>
+                <th scope="row">Total price</th>
+                <td><%= claimData.invoice_total %>€</td>
+            </tr>
+            <tr>
+                <th scope="row">Description</th>
+                <td><%= claimData.description %></td>
+            </tr>
+            <tr>
+                <th scope="row">Status</th>
+                <td><%= claimData.state_id.state %></td>
+            </tr>
+        </tbody>
+    </table>
+    
+    <button type="button" class="btn btn-outline-secondary">Download Vet report</button>
+    <hr style="visibility: hidden">
+    <ul class="list-group">
+        <li class="list-group-item"><b>Action codes covered by clients insurance</b></li>
+        <% for (let i = 0; i < insuranceCodes.length; i++) { %>
+            <li class="list-group-item"><%= insuranceCodes[i][0] %> - <%= insuranceCodes[i][1] %></li>
+            <% } %>
+        </ul>
+        <br>
+        
+        <!-- Form -->
+        <form id="formToSet" class="form-horizontal" action="/updateClaim" method="POST" onsubmit="showLoader()">
+            <fieldset>
+                <!-- Button Drop Down -->
+                <label for="buttondropdown">Type in all action codes of this insurance claim</label>
+                <div class="form-group">
+                    <div class="col-md-4">
+                        <div class="input-group">
+                            <input id="buttondropdown" name="codes" class="form-control" placeholder="39U5,64PP,..." type="text" required>
+                        </div>
+                        
+                    </div>
+                    <small id="passwordHelpBlock" class="form-text text-muted col-md-12">
+                        Use comma without spaces if you need to add multiple codes
+                    </small>
+                </div>
+                
+                <input id="prodId" name="claimId" type="hidden" value="<%= claimData.id %>">
+                <div class="form-group">
+                    <label for="exampleFormControlSelect2">Choose a corresponding vet</label>
+                    <select multiple class="form-control" id="exampleFormControlSelect2" name="vet" required>
+                        <% for (let i = 0; i < vets.length; i++) { %>
+                            <option>
+                                <%= vets[i].id %>:
+                                <%= vets[i].first_name %>
+                                <%= vets[i].last_name %>,
+                                <%= vets[i].address %>
+                            </option>
+                            <% } %>
+                        </select>
+                    </div>
+
+                    <!-- Button -->
+                    <div class="form-group">
+                        <label class="col-md-4 control-label" for="singlebutton"></label>
+                        <div class="col-md-4">
+                            <button id="singlebutton" type="submit" class="btn btn-primary" style="min-width: 50px">
+                                Check codes & set Vet
+                            </button>
+                            
+                        </div>
+                    </div>
+                </fieldset>
+            </form>
+            
+        </div>
+        <script>
+            function showLoader() {
+                var count = 0;
+                setInterval(() => {
+                    if (count == 0) {
+                        document.getElementById("singlebutton").innerHTML = '.'
+                    } else if (count == 1) {
+                        document.getElementById("singlebutton").innerHTML = '..'
+                    } else {
+                        document.getElementById("singlebutton").innerHTML = '...'
+                    }
+                    count = ((count + 1) % 3);
+                }, 300);
+            }
+        </script>

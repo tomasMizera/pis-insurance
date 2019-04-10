@@ -6,6 +6,12 @@
 
 module.exports = {
 
+  getValidActionCodes: function(_codes) {
+    _codes = _codes.map(x => x.toUpperCase());
+    aCodesFromDb = _codes.map(async (c) => await ActionCode.findOne({code:c}));
+    return Promise.all(aCodesFromDb);
+  },
+
   attributes: {
 
     //  ╔═╗╦═╗╦╔╦╗╦╔╦╗╦╦  ╦╔═╗╔═╗
@@ -35,7 +41,7 @@ module.exports = {
     //  ╔═╗╔═╗╔═╗╔═╗╔═╗╦╔═╗╔╦╗╦╔═╗╔╗╔╔═╗
     //  ╠═╣╚═╗╚═╗║ ║║  ║╠═╣ ║ ║║ ║║║║╚═╗
     //  ╩ ╩╚═╝╚═╝╚═╝╚═╝╩╩ ╩ ╩ ╩╚═╝╝╚╝╚═╝
-    insuraces: {
+    insurances: {
       collection: 'insurance',
       via: 'action_codes'
     },
@@ -45,6 +51,4 @@ module.exports = {
       via: 'actionCodes'
     }
   },
-
-
 };

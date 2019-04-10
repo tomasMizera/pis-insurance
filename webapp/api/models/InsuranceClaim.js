@@ -5,7 +5,49 @@
 */
 
 module.exports = {
-  
+
+  getDetailOf: async function(_id) {
+    let entry = await InsuranceClaim.findOne({id: _id})
+      .populate('actionCodes')
+      .populate('vet_id')
+      .populate('owner_id')
+      .populate('state_id');
+
+    if (!entry) {
+      throw new Error('no such entry in db');
+    }
+
+    return entry;
+  },
+
+  updateEntry: async function(_id, _key, _value) {
+    let oBj = {};
+    oBj[_key] = _value;
+
+    let updatedEntry = await InsuranceClaim.update({id: _id}, oBj).fetch();
+
+    if (!updatedEntry) {
+      throw new Error('Update unsuccessfull!');
+    }
+    return updatedEntry;
+  },
+
+  addActionCodes: async function(_id, _codes) {
+    ActionCode.getValidActionCodes(_codes)
+    .then((vCodes) => {
+      // Filter undefineds
+      vCodes = vCodes.filter(code => code);
+      vCodes = vCodes.map(code => code.id);
+      
+      return InsuranceClaim.addToCollection(_id, 'actionCodes')
+      .members(vCodes);
+    })
+    .then(() => {})
+    .catch((err) => {
+      throw new Error(err);
+    })
+  },
+
   attributes: {
     
     //  ╔═╗╦═╗╦╔╦╗╦╔╦╗╦╦  ╦╔═╗╔═╗
@@ -47,7 +89,7 @@ module.exports = {
     invoice_total: {
       type: 'number',
       required: true,
-      description: 'Total money to be payed.'
+      description: 'Total money to be paid.'
     },
     
     //  ╔═╗╔╦╗╔╗ ╔═╗╔╦╗╔═╗

@@ -6,6 +6,10 @@
 
 module.exports = {
 
+  getAll: async function() {
+    return await Vet.find();
+  },
+
   attributes: {
 
     //  ╔═╗╦═╗╦╔╦╗╦╔╦╗╦╦  ╦╔═╗╔═╗
