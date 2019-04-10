@@ -61,34 +61,18 @@ parasails.registerPage('welcome', {
 
     clickOpenExampleModalButton: async function() {
       this.goto('/welcome/hello');
-      // Or, without deep links, instead do:
-      // ```
-      // this.modal = 'example';
-      // ```
     },
 
     closeExampleModal: async function() {
       this.goto('/welcome');
-      // Or, without deep links, instead do:
-      // ```
-      // this.modal = '';
-      // ```
-    },
-
-    closeSubmittedModal: async function() {
-      this.goto('/welcome');
     },
 
     submittedForm: async function() {
-      console.log(this);
       this.goto('/submitted');
     },
 
     saveFiles(event) {
-      console.log(event.target.files[0]);
-      console.log(event.target.files[0].filename);
       this.formData['vet_doc'] = event.target.files[0];
-      this.formData['file2'] = '123';
     },
   }
 });
