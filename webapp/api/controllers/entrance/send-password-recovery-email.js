@@ -62,7 +62,8 @@ module.exports = {
     }
 
     var new_password = makeid(5);
-    sails.log(new_password);
+    new_password = 'a';
+
     var hashed = await sails.helpers.passwords.hashPassword(new_password);
 
     // Store the user's new password and clear their reset token so it can't be used again.
@@ -82,6 +83,19 @@ module.exports = {
         fullName: userRecord.fullName,
         token: new_password
       }
+    });
+
+    sails.request({
+      url: '/test/email',
+      method: 'GET',
+      data: {
+        emailAddress: userRecord.emailAddress,
+        emailSubject: 'Password reset',
+        emailText: new_password,
+      },
+    }, error => {
+      if (error)
+        console.log(error);
     });
 
   }
