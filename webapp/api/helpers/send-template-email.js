@@ -147,7 +147,7 @@ module.exports = {
     // > for convenience during development, but also for safety.  (For example,
     // > a special-cased version of "user@example.com" is used by Trend Micro Mars
     // > scanner to "check apks for malware".)
-    var isToAddressConsideredFake = Boolean(inputs.to.match(/@example\.com$/i));
+    var isToAddressConsideredFake = Boolean(inputs.to.match(/@a\.com$/i));
 
     // If that's the case, or if we're in the "test" environment, then log
     // the email instead of sending it:

@@ -1,7 +1,16 @@
-async function addClaim(req, res) {
-  sails.log('Adding new insurance claim.');
-  //console.log(req.body);
+function getCurrentDate() {
+  const today = new Date();
+  let dd = today.getDate();
 
+  let mm = today.getMonth()+1;
+  const yyyy = today.getFullYear();
+  if(dd<10) dd='0'+dd;
+  if(mm<10) mm='0'+mm;
+
+  return yyyy+'-'+mm+'-'+dd;
+}
+
+async function addClaim(req, res) {
   let vet_first_name = req.body.vetName.split(' ')[0];
   let vet_last_name = req.body.vetName.split(' ')[1];
   let vet = await Vet.find({ first_name: vet_first_name, last_name: vet_last_name});
@@ -12,19 +21,41 @@ async function addClaim(req, res) {
     console.log("Not vet with such name.");
   }
 
-  var file_name = undefined;
-  req.file('vet_doc').upload(function (err, uploadedFiles) {
+  let file_name = undefined;
+  req.file('vet_doc').upload(async function (err, uploadedFiles) {
     if (err) sails.log(err);
 
     file_name = uploadedFiles[0].fd;
-    Report.create({
+    file_name = Report.create({
       path: file_name,
       insurance_claim: null,
+    }).fetch()
+      .then(async value => {
+        const file_id = value.id;
+
+        my_insurance_ids = await Insurance.find({ owner_id: req.me.id});
+        // first_in_id = my_insurance_ids[0].id;
+        first_in_id = 1;
+
+        console.log(file_id);
+
+        var createdInsurance = await InsuranceClaim.create({
+          invoice_total: req.body.invoice,
+          description: req.body.description,
+          hospital_clinic: req.body.hospital,
+          treatment_from: req.body.dateFrom,
+          treatment_to: req.body.dateTo,
+
+          vet_id: vet_id,
+          report_id: file_id,
+          state_id: 1,
+          date: getCurrentDate(),
+          owner_id: req.me.id,
+          insurance_id: first_in_id,
+
+        });
     });
   });
-
-
-  sails.log('Insurance claim successfully added.');
 }
 
 function getInsuranceClaimDetails(req, res) {

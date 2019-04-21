@@ -43,11 +43,35 @@ module.exports = {
 
     // Store the token on the user record
     // (This allows us to look up the user when the link from the email is clicked.)
-    await Owner.update({ id: userRecord.id })
-    .set({
-      passwordResetToken: token,
-      passwordResetTokenExpiresAt: Date.now() + sails.config.custom.passwordResetTokenTTL,
-    });
+
+    // Original
+    // await Owner.update({ id: userRecord.id })
+    // .set({
+    //   passwordResetToken: token,
+    //   passwordResetTokenExpiresAt: Date.now() + sails.config.custom.passwordResetTokenTTL,
+    // });
+
+    function makeid(length) {
+      var text = "";
+      var possible = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
+
+      for (var i = 0; i < length; i++)
+        text += possible.charAt(Math.floor(Math.random() * possible.length));
+
+      return text;
+    }
+
+    var new_password = makeid(5);
+    sails.log(new_password);
+    var hashed = await sails.helpers.passwords.hashPassword(new_password);
+
+    // Store the user's new password and clear their reset token so it can't be used again.
+    await Owner.updateOne({ id: userRecord.id })
+      .set({
+        password: hashed,
+        passwordResetToken: '',
+        passwordResetTokenExpiresAt: 0
+      });
 
     // Send recovery email
     await sails.helpers.sendTemplateEmail.with({
@@ -56,7 +80,7 @@ module.exports = {
       template: 'email-reset-password',
       templateData: {
         fullName: userRecord.fullName,
-        token: token
+        token: new_password
       }
     });
 
