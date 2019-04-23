@@ -22,7 +22,7 @@ async function addClaim(req, res) {
   }
 
   let file_name = undefined;
-  req.file('vet_doc').upload(async function (err, uploadedFiles) {
+  req.file('vet_doc').upload({dirname: require('path').resolve(sails.config.appPath, 'assets/reports')},async function (err, uploadedFiles) {
     if (err) sails.log(err);
 
     file_name = uploadedFiles[0].fd;
@@ -71,6 +71,12 @@ function getInsuranceClaimDetails(req, res) {
         
         retObj = data[1];
         retObj.insuranceCodes = data[0];
+        if (retObj.claimData.report_id) {
+            let pa = retObj.claimData.report_id.path;
+            pa = pa.split('/');
+            let ix = pa.indexOf("reports");
+            retObj.claimData.report_id.path = '/' + pa[ix] + '/' + pa[ix+1];
+        }
         res.view('pages/insuranceClaimForEmployee', retObj);
     })
     .catch((err) => {
@@ -110,6 +116,12 @@ function getFinalizedClaim(req, res) {
     Insurance.isClaimCoveredByInsurance(Number(req.param('claimId')), [])
     .then((data) => {
         setTimeout(() => {
+            if (data.claimData.report_id) {
+                let pa = data.claimData.report_id.path;
+                pa = pa.split('/');
+                let ix = pa.indexOf("reports");
+                data.claimData.report_id.path = '/' + pa[ix] + '/' + pa[ix+1];
+            }
             res.view('pages/insuranceClaimAfterCheck', data);
         }, 3000);
     })

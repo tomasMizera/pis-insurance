@@ -73,8 +73,10 @@
             </tr>
         </tbody>
     </table>
-    
-    <button type="button" class="btn btn-outline-secondary">Download Vet report</button>
+    <% if (claimData.report_id) { %>
+        <a href="<%= claimData.report_id.path %>" target="_blank" download><button type="button" class="btn btn-outline-secondary">Download Vet report</button></a>
+    <% } %>
+        <!-- <a href="pes.txt" target="_blank" download>Download Vet report</a> -->
     <hr style="visibility: hidden">
     <ul class="list-group">
         <li class="list-group-item"><b>Action codes covered by clients insurance</b></li>

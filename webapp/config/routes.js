@@ -76,5 +76,5 @@ module.exports.routes = {
 
   'POST /updateClaim':                                  { controller: 'InsuranceClaimController', action: 'updateInsuranceClaim'},
   'GET /finalizeClaim/:claimId':                        { controller: 'InsuranceClaimController', action: 'finalizeInsuranceClaim'}
-
+  
 };

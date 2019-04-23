@@ -114,7 +114,9 @@
         </tbody>
       </table>
       
-      <button type="button" class="btn btn-outline-secondary">Download Vet report</button>
+      <% if (claimData.report_id) { %>
+        <a href="<%= claimData.report_id.path %>" target="_blank" download><button type="button" class="btn btn-outline-secondary">Download Vet report</button></a>
+      <% } %>
       
       <p class="h4 text-center">
         Summary
@@ -179,9 +181,13 @@
         </tbody>
       </table>
 
-      <p class="h4 text-center">
-        Decision
-      </p>
+      
+
+  <% if (claimData.state_id.state == 'Pending') { %>
+
+    <p class="h4 text-center">
+      Decision
+    </p>
 
       <!-- Form -->
     <form class="form-horizontal" method="GET" action="/insuranceClaimStatus" onsubmit="showLoader()">
@@ -211,20 +217,22 @@
           </div>
       </fieldset>
   </form>
-</div>
 
-<script>
-    function showLoader() {
-        var count = 0;
-        setInterval(() => {
-            if (count == 0) {
-                document.getElementById("singlebutton").innerHTML = '.'
-            } else if (count == 1) {
-                document.getElementById("singlebutton").innerHTML = '..'
-            } else {
-                document.getElementById("singlebutton").innerHTML = '...'
-            }
-            count = ((count + 1) % 3);
-        }, 300);
-    }
-</script>
+  <script>
+      function showLoader() {
+          var count = 0;
+          setInterval(() => {
+              if (count == 0) {
+                  document.getElementById("singlebutton").innerHTML = '.'
+              } else if (count == 1) {
+                  document.getElementById("singlebutton").innerHTML = '..'
+              } else {
+                  document.getElementById("singlebutton").innerHTML = '...'
+              }
+              count = ((count + 1) % 3);
+          }, 300);
+      }
+  </script>
+<% } %>
+
+</div>

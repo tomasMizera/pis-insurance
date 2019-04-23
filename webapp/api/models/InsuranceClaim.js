@@ -11,7 +11,8 @@ module.exports = {
       .populate('actionCodes')
       .populate('vet_id')
       .populate('owner_id')
-      .populate('state_id');
+      .populate('state_id')
+      .populate('report_id');
 
     if (!entry) {
       throw new Error('no such entry in db');
