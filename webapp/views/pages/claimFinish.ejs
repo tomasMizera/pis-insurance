@@ -1,10 +1,14 @@
 <div class="container">
     <h1>Insurance Claim Finalized!</h1>
     <p>
-      Notification email was sent to the owner.
+      Notification email was sent to the owner at <%= ownerMail %>.
     </p>
+
+  <% if ( vetMail !="") { %>
   <h1>Missing vet details</h1>
   <p>
-    The vet has been notified about his missing bank account.
+    The vet has been notified about his missing bank account at <%= vetMail %>.
   </p>
+  <% } %>
+  <a href="/InsuranceClaims">Return to thr list of claims</a>
 </div>

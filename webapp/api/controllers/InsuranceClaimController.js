@@ -130,6 +130,70 @@ function getFinalizedClaim(req, res) {
     })
 }
 
+
+function getCheckedClaim(req, res) {
+
+  let dec = "sent to supervisor";
+
+  if (req.param('decision') == 'accept') {
+    dec = 'accepted';
+    if (req.param('payToVet') == "true")
+    if (req.param('vetMail') != ""){
+    sails.request({
+      url: '/test/validate',
+      method: 'GET',
+      data: {
+        emailAddress: req.param('vetMail'),
+      },
+    }, error => {
+      if (error)
+        console.log(error);
+    });
+
+    sails.request({
+      url: '/test/email',
+      method: 'GET',
+      data: {
+        emailAddress: req.param('vetMail'),
+        emailSubject: 'Missing bank account',
+        emailText: 'Please add your bank account',
+      },
+    }, error => {
+      if (error)
+        console.log(error);
+    });}
+  } else if (req.param('decision') == 'reject') {
+    dec = 'rejected';
+  }
+
+  sails.request({
+    url: '/test/validate',
+    method: 'GET',
+    data: {
+      emailAddress: req.param('ownerMail'),
+    },
+  }, error => {
+    if (error)
+      console.log(error);
+  });
+
+  sails.request({
+    url: '/test/email',
+    method: 'GET',
+    data: {
+      emailAddress: req.param('ownerMail'),
+      emailSubject: 'Your insurance claim',
+      emailText: 'Your claim has been '+dec,
+    },
+  }, error => {
+    if (error)
+      console.log(error);
+  });
+
+
+  res.view('pages/claimFinish', {vetMail: req.param('vetMail'),ownerMail: req.param('ownerMail')});
+}
+
 function provideStateChangeOfClaim(req, res) {
     let decision = req.param('decision');
     let op = 1;
@@ -141,7 +205,7 @@ function provideStateChangeOfClaim(req, res) {
     }
 
     InsuranceClaim.updateEntry(Number(req.param('claimId')), 'state_id', op)
-    .then(() => {getFinalizedClaim(req, res)})
+    .then(() => {getCheckedClaim(req, res)})
     .then(() => {})
     .catch((err) => res.serverError(err));
 }

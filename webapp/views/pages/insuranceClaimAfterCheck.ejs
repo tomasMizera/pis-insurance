@@ -192,7 +192,10 @@
       <!-- Form -->
     <form class="form-horizontal" method="GET" action="/insuranceClaimStatus" onsubmit="showLoader()">
       <fieldset>
+        <input id="payToVet" name="payToVet" type="hidden" value="<%= claimData.pay_to_vet %>">
         <input id="prodId" name="claimId" type="hidden" value="<%= claimData.id %>">
+        <input id="vetMail" name="vetMail" type="hidden" value="<% if (claimData.vet_id.bank_account == "") { %><%= claimData.vet_id.emailAddress %><% } %>">
+        <input id="ownerMail" name="ownerMail" type="hidden" value="<%= claimData.owner_id.emailAddress %>">
         <div class="form-check form-check-inline">
             <input class="form-check-input" type="radio" name="decision" id="inlineRadio1" value="accept">
             <label class="form-check-label" for="inlineRadio1">Accept</label>
