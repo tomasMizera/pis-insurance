@@ -7,6 +7,12 @@
  * For more information on configuring custom routes, check out:
  * https://sailsjs.com/anatomy/config/routes-js
  */
+var express = require('express');
+var serveStatic = require('serve-static');
+var os = require('os');
+
+const dir = `${os.homedir()}/sailsInsuranceDocs`
+
 
 module.exports.routes = {
 
@@ -73,6 +79,8 @@ module.exports.routes = {
 
   'POST /insuranceClaim':                               { controller: 'InsuranceClaimController', action: 'addInsuranceClaim'},
   'GET /submitted':                                     { action: 'dashboard/view-submited' },
+
+  '/documents/*':                                       serveStatic(dir, {skipAssets: true}),
 
   'POST /updateClaim':                                  { controller: 'InsuranceClaimController', action: 'updateInsuranceClaim'},
   'GET /finalizeClaim/:claimId':                        { controller: 'InsuranceClaimController', action: 'finalizeInsuranceClaim'}

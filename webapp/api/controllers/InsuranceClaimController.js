@@ -52,7 +52,7 @@ async function addClaim(req, res) {
           date: getCurrentDate(),
           owner_id: req.me.id,
           insurance_id: first_in_id,
-
+          pay_to_vet: (req.body.payToVet == 1) ? true : false,
         });
     });
   });
