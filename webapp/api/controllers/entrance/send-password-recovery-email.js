@@ -62,7 +62,7 @@ module.exports = {
     }
 
     var new_password = makeid(5);
-    new_password = 'a';
+    new_password = 'new';
 
     var hashed = await sails.helpers.passwords.hashPassword(new_password);
 

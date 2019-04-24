@@ -92,6 +92,12 @@ module.exports = {
       required: true,
       description: 'Total money to be paid.'
     },
+
+    pay_to_vet: {
+      type: 'boolean',
+      required: false,
+      description: 'Pay money to vet.'
+    },
     
     //  ╔═╗╔╦╗╔╗ ╔═╗╔╦╗╔═╗
     //  ║╣ ║║║╠╩╗║╣  ║║╚═╗
