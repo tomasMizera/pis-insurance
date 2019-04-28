@@ -1,1 +1,0 @@
-=QUERY(sort(B2:B,1,0),"limit 10")
