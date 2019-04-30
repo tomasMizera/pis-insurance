@@ -12,6 +12,7 @@
     "fast-xml-parser": "^3.12.16",
     "sails": "^1.1.0",
     "sails-hook-apianalytics": "^2.0.3",
+    "sails-hook-autoreload": "^1.1.0",
     "sails-hook-organics": "^0.15.0",
     "sails-hook-orm": "^2.1.1",
     "sails-hook-sockets": "^1.5.5",

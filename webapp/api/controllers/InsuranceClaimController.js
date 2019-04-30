@@ -1,3 +1,5 @@
+const os = require('os');
+
 function getCurrentDate() {
   const today = new Date();
   let dd = today.getDate();
@@ -18,11 +20,16 @@ async function addClaim(req, res) {
   if (vet[0]) {
     vet_id = vet[0].id;
   } else {
-    console.log("Not vet with such name.");
+    console.log("No vet with such name.");
   }
 
   let file_name = undefined;
-  req.file('vet_doc').upload({dirname: require('path').resolve(sails.config.appPath, 'assets/reports')},async function (err, uploadedFiles) {
+
+  let dir = `${os.homedir()}/sailsInsuranceDocs/documents`
+  
+  req.file('vet_doc').upload({
+    dirname: dir,
+  },async function (err, uploadedFiles) {
     if (err) sails.log(err);
 
     file_name = uploadedFiles[0].fd;
@@ -75,7 +82,7 @@ function getInsuranceClaimDetails(req, res) {
         if (retObj.claimData.report_id) {
             let pa = retObj.claimData.report_id.path;
             pa = pa.split('/');
-            let ix = pa.indexOf("reports");
+            let ix = pa.indexOf("documents");
             retObj.claimData.report_id.path = '/' + pa[ix] + '/' + pa[ix+1];
         }
         res.view('pages/insuranceClaimForEmployee', retObj);
