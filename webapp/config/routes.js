@@ -76,9 +76,10 @@ module.exports.routes = {
   'GET /insuranceClaimStatus':                          { controller: 'InsuranceClaimController', action: 'setInsuranceClaimStatus'},
   'GET /insuranceClaim/:claimId':                       { controller: 'InsuranceClaimController', action: 'getInsuranceClaim'},
 
-
   'POST /insuranceClaim':                               { controller: 'InsuranceClaimController', action: 'addInsuranceClaim'},
   'GET /submitted':                                     { action: 'dashboard/view-submited' },
+
+  'POST /addClaim':                                     { action: 'add-claim'},
 
   '/documents/*':                                       serveStatic(dir, {skipAssets: true}),
 
