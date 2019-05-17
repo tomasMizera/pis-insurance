@@ -115,7 +115,7 @@
       </table>
       
       <% if (claimData.report_id) { %>
-        <a href="<%= claimData.report_id.path %>" target="_blank" download><button type="button" class="btn btn-outline-secondary">Download Vet report</button></a>
+        <a href="/getFile/<%= claimData.report_id.path %>" target="_blank" download><button type="button" class="btn btn-outline-secondary">Download Vet report</button></a>
       <% } %>
       
       <p class="h4 text-center">

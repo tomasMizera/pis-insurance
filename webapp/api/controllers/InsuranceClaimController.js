@@ -1,4 +1,5 @@
 const os = require('os');
+const fs = require('fs');
 
 function getCurrentDate() {
   const today = new Date();
@@ -24,16 +25,21 @@ async function addClaim(req, res) {
   }
 
   let file_name = undefined;
-
-  let dir = `${os.homedir()}/sailsInsuranceDocs/documents`
   
-  req.file('vet_doc').upload({
-    dirname: dir,
-  },async function (err, uploadedFiles) {
+  req.file('vet_doc').upload( async function (err, uploadedFiles) {
     if (err) sails.log(err);
 
-    file_name = uploadedFiles[0].fd;
-    file_name = Report.create({
+    const file = uploadedFiles[0].fd.split('/').pop();
+    const name = file.split('.')[0];
+    const ext = file.split('.')[1];
+
+    file_name = uploadedFiles[0].fd.split('.');
+    const file_extension = file_name.pop();
+    file_name = file_name.join();
+
+    sails.log.warn(name);
+    sails.log.warn(ext);
+    await Report.create({
       path: file_name,
       insurance_claim: null,
     }).fetch()
@@ -59,7 +65,7 @@ async function addClaim(req, res) {
           date: getCurrentDate(),
           owner_id: req.me.id,
           insurance_id: first_in_id,
-          pay_to_vet: (req.body.payToVet == 1) ? true : false,
+          pay_to_vet: (req.body.payToVet === 1),
 
         });
     });
@@ -83,7 +89,7 @@ function getInsuranceClaimDetails(req, res) {
             let pa = retObj.claimData.report_id.path;
             pa = pa.split('/');
             let ix = pa.indexOf("documents");
-            retObj.claimData.report_id.path = '/' + pa[ix] + '/' + pa[ix+1];
+            retObj.claimData.report_id.path = pa[ix+1];
         }
         res.view('pages/insuranceClaimForEmployee', retObj);
     })
@@ -252,6 +258,23 @@ module.exports = {
 
     finalizeInsuranceClaim: (req, res) => {
         getFinalizedClaim(req, res);
+    },
+
+    getReport: (req, res) => {
+      const fileName = req.param('fileName');
+      // sails.log.warn('/home/dominik/Repos/pis-insurance/webapp/.tmp/uploads/' + fileName);
+
+      let file = require('path').resolve('/home/dominik/Repos/pis-insurance/webapp/.tmp/uploads/' + fileName);
+
+      if(fs.existsSync(file))
+      {
+        res.setHeader('Content-disposition', 'attachment; filename=' + fileName + '.c');
+
+        let filestream = fs.createReadStream(file);
+        filestream.pipe(res);
+      }else{
+        res.json({error : "File not Found"});
+      }
     }
 
     // Just wanted to add dump data to db 

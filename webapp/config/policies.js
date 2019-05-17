@@ -26,6 +26,7 @@ module.exports.policies = {
     'updateInsuranceClaim': true,
     'getInsuranceClaim': true,
     'finalizeInsuranceClaim': true,
+    'getReport': true,
     '*': 'is-logged-in'
   }
 };

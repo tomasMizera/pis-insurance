@@ -74,7 +74,7 @@ module.exports = {
       const { response } = await soapRequest(url, headers, xml, 1000);
       const { body, statusCode } = response;
       console.log(body);
-    console.log(xml);
+      console.log(xml);
       console.log(statusCode);
   }
 

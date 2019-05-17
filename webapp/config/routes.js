@@ -7,11 +7,9 @@
  * For more information on configuring custom routes, check out:
  * https://sailsjs.com/anatomy/config/routes-js
  */
-var express = require('express');
-var serveStatic = require('serve-static');
-var os = require('os');
+const serveStatic = require('serve-static');
 
-const dir = `${os.homedir()}/sailsInsuranceDocs`
+const dir = '/home/dominik/Repos/pis-insurance/webapp/.tmp/uploads';
 
 
 module.exports.routes = {
@@ -80,6 +78,7 @@ module.exports.routes = {
   'GET /submitted':                                     { action: 'dashboard/view-submited' },
 
   'POST /addClaim':                                     { action: 'add-claim'},
+  'GET /getFile/:fileName':                             { controller: 'InsuranceClaimController', action: 'getReport'},
 
   '/documents/*':                                       serveStatic(dir, {skipAssets: true}),
 
