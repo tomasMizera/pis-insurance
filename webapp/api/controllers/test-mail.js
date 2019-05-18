@@ -13,7 +13,7 @@ module.exports = {
   friendlyName: 'Notify with email',
 
 
-  description: 'Send email to a specific email address.',
+  description: 'Send email to a specific email address using a soap webservice.',
 
 
   inputs: {
@@ -73,9 +73,10 @@ module.exports = {
 
       const { response } = await soapRequest(url, headers, xml, 1000);
       const { body, statusCode } = response;
-      console.log(body);
-      console.log(xml);
-      console.log(statusCode);
+
+      sails.info('Body:', body);
+      sails.info('Xml:', xml);
+      sails.info('Status code:', statusCode);
   }
 
 };
