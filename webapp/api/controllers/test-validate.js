@@ -5,7 +5,7 @@
  * @help        :: See https://sailsjs.com/docs/concepts/actions
  */
 const soapRequest = require('easy-soap-request');
-var parser = require('fast-xml-parser');
+const parser = require('fast-xml-parser');
 const fs = require('fs');
 
 module.exports = {

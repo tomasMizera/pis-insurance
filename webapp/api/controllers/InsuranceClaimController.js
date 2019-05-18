@@ -256,22 +256,6 @@ module.exports = {
         getFinalizedClaim(req, res);
     },
 
-    getReport: (req, res) => {
-      const fileName = req.param('fileName');
-
-      let file = require('path').resolve('/home/dominik/Repos/pis-insurance/webapp/.tmp/uploads/' + fileName + '.pdf');
-
-      if(fs.existsSync(file))
-      {
-        res.setHeader('Content-disposition', 'attachment; filename=' + fileName + '.pdf');
-
-        let filestream = fs.createReadStream(file);
-        filestream.pipe(res);
-      }else{
-        res.json({error : "File not Found"});
-      }
-    },
-
     getReportById: async (req, res) => {
       const reportId = req.param('reportId');
 

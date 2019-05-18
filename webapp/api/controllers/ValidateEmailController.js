@@ -5,7 +5,7 @@
 * @help        :: See https://sailsjs.com/docs/concepts/actions
 */
 const soapRequest = require('easy-soap-request');
-var parser = require('fast-xml-parser');
+const parser = require('fast-xml-parser');
 const fs = require('fs');
 
 async function validateClientEmail(req, res) {
@@ -43,34 +43,6 @@ async function validateClientEmail(req, res) {
 
 
 module.exports = {
-  
-  // friendlyName: 'Validate email',
-  
-  // description: 'Validate a specific email address.',
-  
-  // inputs: {
-  
-  //   emailAddress: {
-  //     required: true,
-  //     type: 'string',
-  //     description: 'An email address where we can respond.',
-  //     example: 'hermione@hogwarts.edu'
-  //   },
-  
-  // },
-  
-  // exits: {
-  
-  //   success: {
-  //     description: 'The email is valid.'
-  //   },
-  
-  //   notValid: {
-  //     description: 'Email invalid.'
-  //   }
-  
-  // },
-  
   validateEmail: function(req, res) {
     validateClientEmail(req, res)
     .then((data) => {
@@ -82,6 +54,5 @@ module.exports = {
       res.status(406).send('Wrong email address format')
     })
   }
-  
   
 };
