@@ -29,18 +29,15 @@ async function addClaim(req, res) {
   req.file('vet_doc').upload( async function (err, uploadedFiles) {
     if (err) sails.log(err);
 
-    const file = uploadedFiles[0].fd.split('/').pop();
-    const name = file.split('.')[0];
-    const ext = file.split('.')[1];
-
-    file_name = uploadedFiles[0].fd.split('.');
+    file_name = uploadedFiles[0].fd.split('/').pop().split('.');
     const file_extension = file_name.pop();
-    file_name = file_name.join();
+    file_name = file_name.join('');
 
-    sails.log.warn(name);
-    sails.log.warn(ext);
+    sails.log.warn(file_name);
+    sails.log.warn(file_extension);
     await Report.create({
       path: file_name,
+      extension: file_extension,
       insurance_claim: null,
     }).fetch()
       .then(async value => {
@@ -237,8 +234,7 @@ module.exports = {
     },
 
     getInsuranceClaims: (req, res) => {
-
-        // list only pending claims
+      // list only pending claims
       InsuranceClaim.find({state_id: 1},function(err, claims){
         res.view('pages/claims', {claims: claims});
       });
@@ -262,13 +258,12 @@ module.exports = {
 
     getReport: (req, res) => {
       const fileName = req.param('fileName');
-      // sails.log.warn('/home/dominik/Repos/pis-insurance/webapp/.tmp/uploads/' + fileName);
 
-      let file = require('path').resolve('/home/dominik/Repos/pis-insurance/webapp/.tmp/uploads/' + fileName);
+      let file = require('path').resolve('/home/dominik/Repos/pis-insurance/webapp/.tmp/uploads/' + fileName + '.pdf');
 
       if(fs.existsSync(file))
       {
-        res.setHeader('Content-disposition', 'attachment; filename=' + fileName + '.c');
+        res.setHeader('Content-disposition', 'attachment; filename=' + fileName + '.pdf');
 
         let filestream = fs.createReadStream(file);
         filestream.pipe(res);
@@ -276,23 +271,4 @@ module.exports = {
         res.json({error : "File not Found"});
       }
     }
-
-    // Just wanted to add dump data to db 
-    // await Vet.create({
-    //     emailAddress: 'vet@ma.om',
-    //     password: 'patrik',
-    //     first_name: 'Patrik',
-    //     last_name: 'Skulavy',
-    //     address: 'J. Holleho 13, Tvrdosovce u Dominika doma',
-    //     phone_number: '0944522011',
-    // });
-    // await Vet.create({
-    //     emailAddress: 'v@ma.com',
-    //     password: 'vet',
-    //     first_name: 'Bethoven',
-    //     last_name: 'Ruzovy',
-    //     address: 'J. Holleho 13, Tvrdosovce u Dominika doma',
-    //     phone_number: '0944522011',
-    //     bank_account: 'SK110092200025125663642'
-    // });
-}
+};
