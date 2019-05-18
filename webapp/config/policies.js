@@ -19,6 +19,7 @@ module.exports.policies = {
 
   'test-mail': true,
   'test-validate': true,
+  'download-report': true,
 
   InsuranceClaimController: {
     'getInsuranceClaims': true,
@@ -26,7 +27,6 @@ module.exports.policies = {
     'updateInsuranceClaim': true,
     'getInsuranceClaim': true,
     'finalizeInsuranceClaim': true,
-    'getReportById': true,
     '*': 'is-logged-in'
   }
 };
