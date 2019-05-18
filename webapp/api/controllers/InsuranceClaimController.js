@@ -270,5 +270,30 @@ module.exports = {
       }else{
         res.json({error : "File not Found"});
       }
-    }
+    },
+
+    getReportById: async (req, res) => {
+      const reportId = req.param('reportId');
+
+      await Report.find({ id: reportId }, (error, reports) => {
+        if (error) {
+          sails.log.warn(error);
+        }
+
+        const path = reports[0].path;
+
+        const uploadsDir = '/home/dominik/Repos/pis-insurance/webapp/.tmp/uploads/';
+
+        let file = require('path').resolve(uploadsDir + path + '.pdf');
+
+        const SkipperDisk = require('skipper-disk');
+        const fileAdapter = SkipperDisk(/* optional opts */);
+
+        res.set("Content-disposition", "attachment; filename=" + path + ".pdf");
+
+        fileAdapter.read(file)
+          .on('error', err => res.serverError(err))
+          .pipe(res);
+      });
+    },
 };

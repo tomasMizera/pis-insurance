@@ -79,7 +79,7 @@ module.exports.routes = {
 
   // 'POST /addClaim':                                     { action: 'add-claim'},
   'GET /getFile/:fileName':                             { controller: 'InsuranceClaimController', action: 'getReport'},
-
+  'GET /getReport/:reportId':                             { controller: 'InsuranceClaimController', action: 'getReportById'},
   // '/documents/*':                                       serveStatic(dir, {skipAssets: true}),
 
   'POST /updateClaim':                                  { controller: 'InsuranceClaimController', action: 'updateInsuranceClaim'},

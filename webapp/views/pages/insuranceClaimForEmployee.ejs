@@ -74,7 +74,7 @@
         </tbody>
     </table>
     <% if (claimData.report_id) { %>
-        <a href="/getFile/<%= claimData.report_id.path %>" target="_blank" download><button type="button" class="btn btn-outline-secondary">Download Vet report</button></a>
+        <a href="/getReport/<%= claimData.report_id.id %>" target="_blank" download><button type="button" class="btn btn-outline-secondary">Download Vet report</button></a>
     <% } %>
         <!-- <a href="pes.txt" target="_blank" download>Download Vet report</a> -->
     <hr style="visibility: hidden">
