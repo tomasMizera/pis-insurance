@@ -1,21 +1,10 @@
 const os = require('os');
 const fs = require('fs');
 
-function getCurrentDate() {
-  const today = new Date();
-  let dd = today.getDate();
-
-  let mm = today.getMonth()+1;
-  const yyyy = today.getFullYear();
-  if(dd<10) dd='0'+dd;
-  if(mm<10) mm='0'+mm;
-
-  return yyyy+'-'+mm+'-'+dd;
-}
-
 async function addClaim(req, res) {
   let vet_first_name = req.body.vetName.split(' ')[0];
   let vet_last_name = req.body.vetName.split(' ')[1];
+
   let vet = await Vet.find({ first_name: vet_first_name, last_name: vet_last_name});
   let vet_id = undefined;
   if (vet[0]) {
@@ -61,7 +50,7 @@ async function addClaim(req, res) {
           vet_id: vet_id,
           report_id: file_id,
           state_id: 1,
-          date: getCurrentDate(),
+          date: await sails.helpers.getCurrentIsoDate(),
           owner_id: req.me.id,
           insurance_id: first_in_id,
           pay_to_vet: (req.body.payToVet === 1),
