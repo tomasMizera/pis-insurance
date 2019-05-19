@@ -26,7 +26,9 @@ async function addClaim(req, res) {
 
   let file_name = undefined;
   
-  req.file('vet_doc').upload( async function (err, uploadedFiles) {
+  req.file('vet_doc').upload({
+    dirname: require('path').resolve(sails.config.custom.uploadDir)
+  }, async function (err, uploadedFiles) {
     if (err) sails.log(err);
 
     file_name = uploadedFiles[0].fd.split('/').pop().split('.');

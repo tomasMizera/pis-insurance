@@ -9,6 +9,9 @@
  */
 
 module.exports.custom = {
+  // By default the .tmp dir of the webapp is used.
+  uploadDir: "/home/dominik/Repos/pis-insurance/webapp/.tmp/uploads/",
+  downloadDir: "/home/dominik/Repos/pis-insurance/webapp/.tmp/uploads/",
 
   /**************************************************************************
   *                                                                         *

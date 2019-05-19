@@ -11,19 +11,29 @@ module.exports = {
       statusCode: 200,
       description: 'Document has been sent for download.'
     },
+
+    notFound: {
+      statusCode: 403,
+      description: 'not found'
+    },
   },
 
   fn: async function () {
-    const reportId = this.req.param('reportId');
+    const id = this.req.param('reportId');
 
-    let reports = await Report.find({ id: reportId });
+    const report = await Report.findOne({ id });
+    if(!report) {
+      throw 'notFound';
+    }
 
-    const path = reports[0].path;
-    const uploadsDir = '/home/dominik/Repos/pis-insurance/webapp/.tmp/uploads/';
+    const filename = `${report.path}.${report.extension}`;
 
-    let file = require('path').resolve(uploadsDir + path + '.pdf');
+    const file = require('path').resolve(sails.config.custom.downloadDir + filename);
+    if(!file) {
+      throw 'notFound';
+    }
 
-    this.res.set("Content-disposition", "attachment; filename=" + path + ".pdf");
+    this.res.attachment(filename);
 
     return await sails.startDownload(file);
   }
