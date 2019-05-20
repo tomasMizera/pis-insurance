@@ -1,61 +1,42 @@
-const os = require('os');
-const fs = require('fs');
-
 async function addClaim(req, res) {
-  let vet_first_name = req.body.vetName.split(' ')[0];
-  let vet_last_name = req.body.vetName.split(' ')[1];
-
-  let vet = await Vet.find({ first_name: vet_first_name, last_name: vet_last_name});
-  let vet_id = undefined;
-  if (vet[0]) {
-    vet_id = vet[0].id;
-  } else {
-    console.log("No vet with such name.");
-  }
-
-  let file_name = undefined;
-  
   req.file('vet_doc').upload({
     dirname: require('path').resolve(sails.config.custom.uploadDir)
   }, async function (err, uploadedFiles) {
-    if (err) sails.log(err);
+    if (err) {
+      res.serverError('Could not upload file: ' + err);
+    }
 
-    file_name = uploadedFiles[0].fd.split('/').pop().split('.');
-    const file_extension = file_name.pop();
-    file_name = file_name.join('');
+    let fd = uploadedFiles[0].fd.split('/').pop().split('.');
+    const file_extension = fd.pop();
+    const file_name = fd.join('');
 
-    sails.log.warn(file_name);
-    sails.log.warn(file_extension);
-    await Report.create({
-      path: file_name,
-      extension: file_extension,
-      insurance_claim: null,
-    }).fetch()
-      .then(async value => {
-        const file_id = value.id;
+    sails.log.debug(file_name);
+    sails.log.debug(file_extension);
 
-        my_insurance_ids = await Insurance.find({ owner_id: req.me.id});
-        // first_in_id = my_insurance_ids[0].id;
-        first_in_id = 1;
+    const newReport = await Report.create({
+        path: file_name,
+        extension: file_extension,
+        insurance_claim: null,
+      }).fetch();
 
-        console.log(file_id);
+    my_insurance_ids = await Insurance.find({ owner_id: req.me.id});
+    // first_in_id = my_insurance_ids[0].id;
+    first_in_id = 1;
 
-        var createdInsurance = await InsuranceClaim.create({
-          invoice_total: req.body.invoice,
-          description: req.body.description,
-          hospital_clinic: req.body.hospital,
-          treatment_from: req.body.dateFrom,
-          treatment_to: req.body.dateTo,
+    await InsuranceClaim.create({
+      invoice_total: req.body.invoice,
+      description: req.body.description,
+      hospital_clinic: req.body.hospital,
+      treatment_from: req.body.dateFrom,
+      treatment_to: req.body.dateTo,
 
-          vet_id: vet_id,
-          report_id: file_id,
-          state_id: 1,
-          date: await sails.helpers.getCurrentIsoDate(),
-          owner_id: req.me.id,
-          insurance_id: first_in_id,
-          pay_to_vet: (req.body.payToVet === 1),
-
-        });
+      vet_id: undefined,
+      report_id: newReport.id,
+      state_id: 1,
+      date: await sails.helpers.getCurrentIsoDate(),
+      owner_id: req.me.id,
+      insurance_id: first_in_id,
+      pay_to_vet: (req.body.payToVet === 1),
     });
   });
 }
@@ -70,7 +51,6 @@ function getInsuranceClaimDetails(req, res) {
         return Promise.all([Insurance.getActionCodes(datas[0].insurance_id), retObj])
     })
     .then((data) => {
-        
         retObj = data[1];
         retObj.insuranceCodes = data[0];
         if (retObj.claimData.report_id) {

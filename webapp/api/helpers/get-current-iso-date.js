@@ -30,8 +30,7 @@ module.exports = {
     if(dd<10) dd='0'+dd;
     if(mm<10) mm='0'+mm;
 
-    // Send back the result through the success exit.
-    return exits.success(yyyy+'-'+mm+'-'+dd);
+    return exits.success(`${yyyy}-${mm}-${dd}`);
   }
 
 };
