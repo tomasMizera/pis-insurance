@@ -8,6 +8,7 @@
  * https://sailsjs.com/anatomy/config/routes-js
  */
 const serveStatic = require('serve-static');
+const dir = '/home/dominik/Repos/pis-insurance/webapp/.tmp/uploads';
 const os = require('os');
 
 const dir = `${os.homedir()}/sailsInsuranceDocs`;
@@ -74,11 +75,13 @@ module.exports.routes = {
   'GET /insuranceClaimStatus':                            { controller: 'InsuranceClaimController', action: 'setInsuranceClaimStatus'},
   'GET /insuranceClaim/:claimId':                         { controller: 'InsuranceClaimController', action: 'getInsuranceClaim'},
 
+  'POST /insuranceClaim':                               { controller: 'InsuranceClaimController', action: 'addInsuranceClaim'},
+  'GET /submitted':                                     { action: 'dashboard/view-submited' },
 
-  'POST /insuranceClaim':                                 { controller: 'InsuranceClaimController', action: 'addInsuranceClaim'},
-  'GET /submitted':                                       { action: 'dashboard/view-submited' },
-
-  '/documents/*':                                         serveStatic(dir, {skipAssets: true}),
+  // 'POST /addClaim':                                     { action: 'add-claim'},
+  'GET /getFile/:fileName':                             { controller: 'InsuranceClaimController', action: 'getReport'},
+  'GET /getReport/:reportId':                             { controller: 'InsuranceClaimController', action: 'getReportById'},
+  // '/documents/*':                                       serveStatic(dir, {skipAssets: true}),
 
   'POST /updateClaim':                                    { controller: 'InsuranceClaimController', action: 'updateInsuranceClaim'},
   'GET /finalizeClaim/:claimId':                          { controller: 'InsuranceClaimController', action: 'finalizeInsuranceClaim'}

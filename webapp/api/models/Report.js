@@ -19,6 +19,13 @@ module.exports = {
       example: '/home/user/Downloads/report_123982347.pdf'
     },
 
+    extension: {
+      type: 'string',
+      required: true,
+      description: 'Extension of the report file.',
+      example: 'pdf'
+    },
+
     //  ╔═╗╔╦╗╔╗ ╔═╗╔╦╗╔═╗
     //  ║╣ ║║║╠╩╗║╣  ║║╚═╗
     //  ╚═╝╩ ╩╚═╝╚═╝═╩╝╚═╝
